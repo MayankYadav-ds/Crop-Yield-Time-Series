@@ -1,0 +1,770 @@
+{
+  "input_identity": {
+    "name": "crop_production.csv",
+    "bytes": 15316741,
+    "sha256": "5b2637058ca4aff2ef7c0e0f2f391bca712300d082693b585f489871fd91d520"
+  },
+  "dataset": {
+    "rows": 246091,
+    "columns": 7,
+    "states": 33,
+    "district_name_labels": 646,
+    "state_district_pairs": 652,
+    "crops_raw": 124,
+    "crops_standardized": 124,
+    "start_year": 1997,
+    "end_year": 2015,
+    "missing": {
+      "State_Name": 0,
+      "District_Name": 0,
+      "Crop_Year": 0,
+      "Season": 0,
+      "Crop": 0,
+      "Area": 0,
+      "Production": 3730
+    },
+    "exact_duplicates": 0,
+    "business_duplicate_rows": 0,
+    "nonpositive_area": 0,
+    "negative_production": 0,
+    "season_counts": {
+      "Kharif": 95951,
+      "Rabi": 66987,
+      "Whole Year": 57305,
+      "Summer": 14841,
+      "Winter": 6058,
+      "Autumn": 4949
+    },
+    "raw_rows_by_year": {
+      "1997": 8899,
+      "1998": 11533,
+      "1999": 12515,
+      "2000": 13658,
+      "2001": 13361,
+      "2002": 16671,
+      "2003": 17287,
+      "2004": 14117,
+      "2005": 13799,
+      "2006": 14328,
+      "2007": 14526,
+      "2008": 14550,
+      "2009": 14116,
+      "2010": 14065,
+      "2011": 14071,
+      "2012": 13410,
+      "2013": 13650,
+      "2014": 10973,
+      "2015": 562
+    },
+    "units": "not encoded; production/area ratio reported without asserting verified tonnes/hectare"
+  },
+  "preprocessing": {
+    "annual_panel_rows": 210131,
+    "annual_groups_by_decision": {
+      "included": 210131,
+      "invalid_or_missing_component": 3713,
+      "whole_year_overlap": 362
+    },
+    "raw_rows_by_decision": {
+      "included": 241302,
+      "invalid_or_missing_component": 3997,
+      "whole_year_overlap": 792
+    },
+    "no_production_imputation": true,
+    "outliers_removed": 0
+  },
+  "design": {
+    "crops": [
+      "Rice",
+      "Maize",
+      "Wheat",
+      "Rapeseed &Mustard"
+    ],
+    "n_series": 1112,
+    "n_panel_observations": 11120,
+    "excluded_incomplete_series": 1283,
+    "train_final": [
+      2005,
+      2011
+    ],
+    "validation_targets": [
+      2010,
+      2011
+    ],
+    "validation_origins": [
+      2009,
+      2010
+    ],
+    "one_step_test_targets": [
+      2012,
+      2013,
+      2014
+    ],
+    "fixed_origin_test": {
+      "origin": 2011,
+      "targets": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    "raw_2015_excluded": "562 records; incomplete coverage relative to other years",
+    "modeled_cutoff": 2014,
+    "future_targets": [
+      2015,
+      2016,
+      2017
+    ],
+    "survivor_bias": "eligibility requires complete test-era observations",
+    "seed": 42,
+    "series_selection": "four named crops matching earlier experiment scope",
+    "units": "production units / area units; physical labels absent"
+  },
+  "selection_and_scores": {
+    "best_by_validation_RMSE": "XGBoost_Tuned",
+    "validation": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 2224,
+        "MAE": 0.27552667726491636,
+        "RMSE": 0.529400158832265,
+        "MAPE": 17.914180905917075,
+        "MAPE_n": 2224,
+        "sMAPE": 16.457721230262358,
+        "MASE": 2.9853032244920605,
+        "MFE": 0.10234309785389051
+      }
+    ],
+    "test_one_step": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 3336,
+        "MAE": 0.3369237065129647,
+        "RMSE": 0.5617434640622884,
+        "MAPE": 24.765871069389913,
+        "MAPE_n": 3335,
+        "sMAPE": 19.705807525771938,
+        "MASE": 3.6770389263668233,
+        "MFE": -0.08638080513632718,
+        "RMSE_improvement_vs_naive_pct": 1.10991391279055
+      }
+    ],
+    "fixed_origin_three_step": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 3336,
+        "MAE": 0.3748068059641779,
+        "RMSE": 0.6283375698152623,
+        "MAPE": 25.81432429363452,
+        "MAPE_n": 3335,
+        "sMAPE": 21.037626901423934,
+        "MASE": 4.5406517116229415,
+        "MFE": -0.09188870692072604,
+        "RMSE_improvement_vs_naive_pct": -1.4908186162008619
+      }
+    ],
+    "test_lowest_RMSE": "LSTM",
+    "test_lowest_MAE": "PatchTransformerTiny",
+    "test_lowest_MAPE": "Naive",
+    "evaluated_models": [
+      "LSTM",
+      "PatchTransformerTiny",
+      "GRU",
+      "XGBoost_Tuned",
+      "Naive",
+      "SES_LS",
+      "MA3",
+      "Drift",
+      "Mean",
+      "DampedHolt_LS",
+      "Holt_LS",
+      "AR1_OLS"
+    ],
+    "failed_fits": 0,
+    "optimizer_non_success": 0,
+    "negative_test_predictions": 29,
+    "negative_future_predictions": 0,
+    "runtime_seconds": 140.93824740000127
+  },
+  "model_status": {
+    "LSTM": {
+      "status": "trained and evaluated",
+      "selected_epochs": 49,
+      "parameter_count": 1233,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "GRU": {
+      "status": "trained and evaluated",
+      "selected_epochs": 52,
+      "parameter_count": 929,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "PatchTransformerTiny": {
+      "status": "trained and evaluated",
+      "selected_epochs": 31,
+      "parameter_count": 657,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "Prophet": {
+      "status": "excluded after runtime failure",
+      "error": "Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\iczu7f9u.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\9wafuodo.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\prophet_model7zz7t4r3\\prophet_model-20261118194935.csv method=optimize algorithm=newton iter=10000' failed: ",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_988\\4257671604.py\", line 18, in <module>\n    pp=prophet_predictions(prior,[2010,2011],'validation_one_step');rmse=np.sqrt(np.mean((pp.actual-pp.prediction)**2));pv.append({'changepoint_prior_scale':prior,'validation_RMSE':rmse});prior_predictions[prior]=pp\n       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_988\\4257671604.py\", line 13, in prophet_predictions\n    m.fit(frame,seed=42);yrs=years if mode=='fixed_origin' else [origin+1];pr=m.predict(pd.DataFrame({'ds':pd.to_datetime([str(y)+'-01-01' for y in yrs])})).yhat.values\n    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\forecaster.py\", line 1442, in fit\n    self.params = stan_backend.fit(stan_init, dat, **kwargs)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 169, in fit\n    raise e\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 165, in fit\n    self.stan_fit = self.model.optimize(**args)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\utils\\deprecation.py\", line 37, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\model.py\", line 660, in optimize\n    raise RuntimeError(msg)\nRuntimeError: Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\iczu7f9u.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\9wafuodo.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\prophet_model7zz7t4r3\\prophet_model-20261118194935.csv method=optimize algorithm=newton iter=10000' failed: \n"
+    },
+    "XGBoost_Tuned": {
+      "status": "trained and evaluated",
+      "trial_count": 12,
+      "parameters": {
+        "n_estimators": 250,
+        "max_depth": 3,
+        "learning_rate": 0.03,
+        "subsample": 0.8,
+        "colsample_bytree": 0.9,
+        "reg_lambda": 10
+      }
+    },
+    "ARIMA": {
+      "status": "excluded: environment block",
+      "error": "Windows application-control policy blocks statsmodels state-space _inversions extension; no policy changes attempted"
+    },
+    "SARIMA_seasonal_HW": {
+      "status": "excluded: no justified annual periodicity"
+    },
+    "ARCH_GARCH_VAR": {
+      "status": "not fit; short annual histories and inadequate validated multivariate/volatility design"
+    }
+  },
+  "runtime_environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "packages": {
+      "numpy": "2.5.5",
+      "pandas": "3.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "scikit-learn": "1.9.1",
+      "xgboost": "3.4.1",
+      "matplotlib": "3.11.2",
+      "torch": "2.15.0",
+      "prophet": "1.5.0"
+    },
+    "seed": 42,
+    "device": "CPU",
+    "torch_threads": 2
+  },
+  "independent_checks": {
+    "notebook": {
+      "execution_method": "real Jupyter kernel via nbclient",
+      "notebook_cells": 39,
+      "code_cells_executed": 19,
+      "error_outputs": 0,
+      "elapsed_seconds": 152.2038845000061,
+      "events": [
+        {
+          "cell_index": 3,
+          "execution_count": 1,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 5,
+          "execution_count": 2,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 7,
+          "execution_count": 3,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 9,
+          "execution_count": 4,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 11,
+          "execution_count": 5,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 13,
+          "execution_count": 6,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 15,
+          "execution_count": 7,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 17,
+          "execution_count": 8,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 19,
+          "execution_count": 9,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 21,
+          "execution_count": 10,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 23,
+          "execution_count": 11,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 25,
+          "execution_count": 12,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 27,
+          "execution_count": 13,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 29,
+          "execution_count": 14,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 31,
+          "execution_count": 15,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 33,
+          "execution_count": 16,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 35,
+          "execution_count": 17,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 37,
+          "execution_count": 18,
+          "error_outputs": 0
+        },
+        {
+          "cell_index": 39,
+          "execution_count": 19,
+          "error_outputs": 0
+        }
+      ],
+      "embedded_png_outputs": 29,
+      "colab_hosted_execution": "not performed: browser signed out; no account credentials provided",
+      "model_failures_are_explicitly_logged": true
+    },
+    "independent_kernel_replay": {
+      "validation_predictions.csv": {
+        "rows": 26688,
+        "maximum_absolute_numeric_difference": 0.0
+      },
+      "test_predictions.csv": {
+        "rows": 40032,
+        "maximum_absolute_numeric_difference": 0.0
+      },
+      "fixed_origin_predictions.csv": {
+        "rows": 40032,
+        "maximum_absolute_numeric_difference": 0.0
+      },
+      "future_forecasts.csv": {
+        "rows": 3336,
+        "maximum_absolute_numeric_difference": 0.0
+      }
+    },
+    "metric_recalculations": [
+      {
+        "protocol": "validation",
+        "model": "AR1_OLS",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "DampedHolt_LS",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "Drift",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "GRU",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "Holt_LS",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "LSTM",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "MA3",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "Mean",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "Naive",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "PatchTransformerTiny",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "SES_LS",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "validation",
+        "model": "XGBoost_Tuned",
+        "all_metrics_verified": true,
+        "n": 2224
+      },
+      {
+        "protocol": "test",
+        "model": "AR1_OLS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "DampedHolt_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "Drift",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "GRU",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "Holt_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "LSTM",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "MA3",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "Mean",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "Naive",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "PatchTransformerTiny",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "SES_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "test",
+        "model": "XGBoost_Tuned",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "AR1_OLS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "DampedHolt_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "Drift",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "GRU",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "Holt_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "LSTM",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "MA3",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "Mean",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "Naive",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "PatchTransformerTiny",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "SES_LS",
+        "all_metrics_verified": true,
+        "n": 3336
+      },
+      {
+        "protocol": "fixed_origin",
+        "model": "XGBoost_Tuned",
+        "all_metrics_verified": true,
+        "n": 3336
+      }
+    ],
+    "data": {
+      "original_input_sha256_unchanged": true,
+      "raw_rows": 246091,
+      "annual_groups": 210131,
+      "modeled_series": 1112,
+      "physical_units_verified": false,
+      "source_license_verified": false
+    },
+    "training": {
+      "three_neural_models_trained": true,
+      "training_target_year_checks": true,
+      "inner_stopping": {
+        "training_end": 2008,
+        "stop_year": 2009,
+        "patience": 8,
+        "max_epochs": 60
+      },
+      "checkpoint_replay": "passed in actual notebook for each neural test origin",
+      "xgboost_trials": 12,
+      "selection_frozen_before_current_test_computation": true,
+      "test_was_previously_examined": true,
+      "Prophet_status": "excluded after runtime failure",
+      "ARIMA_status": "excluded: environment block"
+    },
+    "colab": {
+      "upload_adapter_integration_tests": [
+        "valid CSV upload payload accepted with matching digest",
+        "zero CSV rejected",
+        "multiple CSVs rejected",
+        "wrong schema rejected"
+      ],
+      "installation_command_construction_tested": true,
+      "cpu_index_verified_in_branch": true,
+      "real_dependency_installation": "passed locally in isolated workspace package directory",
+      "hosted_colab_execution": "unverified: Google sign-in unavailable",
+      "linux_dependency_installation": "not executed; no hosted account access",
+      "scope_of_mock_tests": "SDK payload and installer command behavior only; not a real hosted upload or install"
+    },
+    "document_consistency": {
+      "report_metric_table_verified": true,
+      "presentation_metric_table_verified": true,
+      "native_charts": [
+        {
+          "chart": "ppt/slides/charts/chart1.xml",
+          "title": "Annual reporting",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart2.xml",
+          "title": "Matched crop ratios",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart3.xml",
+          "title": "Validation RMSE by trial",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart4.xml",
+          "title": "Inner stopping year 2009",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart5.xml",
+          "title": "Outer validation RMSE",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart6.xml",
+          "title": "One-step test RMSE",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart7.xml",
+          "title": "Cohort mean: one-step",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart8.xml",
+          "title": "Fixed-origin MAE",
+          "data_verified_to_published_precision": true
+        },
+        {
+          "chart": "ppt/slides/charts/chart9.xml",
+          "title": "2015\u20132017 point forecasts",
+          "data_verified_to_published_precision": true
+        }
+      ],
+      "chart_numeric_storage": "12 significant digits for Excel portability; full-precision CSVs retained",
+      "report_pages": 7,
+      "abstract_words": 167,
+      "references": 10,
+      "slides": 16,
+      "report_figures_generated_from_recorded_data": true,
+      "figure_generation_code_retained": true,
+      "presentation_pdf_pages": 16,
+      "native_powerpoint": {
+        "opened_in_powerpoint": true,
+        "slides": 16,
+        "native_charts": 9,
+        "native_tables": 7
+      },
+      "report_pages_visually_inspected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "native_slides_visually_inspected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    "backup": {
+      "archive": "C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\outputs\\WORKING_BACKUP_20261118_190418.zip",
+      "zip_integrity": "passed",
+      "original_files_unchanged": true,
+      "verified_files": [
+        "Crop_Yield_Time_Series_Report_Matched_EXECUTED.ipynb",
+        "Final_Time_Series_Research_Report.docx",
+        "Final_Time_Series_Research_Report.pdf",
+        "NOTEBOOK_VERIFICATION.json",
+        "NOTEBOOK_VERIFICATION.md",
+        "REPORT_ACCURACY_AUDIT.md",
+        "REPORT_EVIDENCE.zip",
+        "RUBRIC_COMPLIANCE.md"
+      ]
+    },
+    "viva_questions": 50,
+    "demonstration_minutes": 11
+  }
+}

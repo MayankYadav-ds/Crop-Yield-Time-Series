@@ -1,0 +1,30 @@
+{
+  "State_Name": {
+    "dtype": "str",
+    "missing": 0
+  },
+  "District_Name": {
+    "dtype": "str",
+    "missing": 0
+  },
+  "Crop_Year": {
+    "dtype": "int64",
+    "missing": 0
+  },
+  "Season": {
+    "dtype": "str",
+    "missing": 0
+  },
+  "Crop": {
+    "dtype": "str",
+    "missing": 0
+  },
+  "Area": {
+    "dtype": "float64",
+    "missing": 0
+  },
+  "Production": {
+    "dtype": "float64",
+    "missing": 3730
+  }
+}

@@ -1,0 +1,2339 @@
+{
+  "dataset_summary": {
+    "rows": 246091,
+    "columns": 7,
+    "states": 33,
+    "district_name_labels": 646,
+    "state_district_pairs": 652,
+    "crops_raw": 124,
+    "crops_standardized": 124,
+    "start_year": 1997,
+    "end_year": 2015,
+    "missing": {
+      "State_Name": 0,
+      "District_Name": 0,
+      "Crop_Year": 0,
+      "Season": 0,
+      "Crop": 0,
+      "Area": 0,
+      "Production": 3730
+    },
+    "exact_duplicates": 0,
+    "business_duplicate_rows": 0,
+    "nonpositive_area": 0,
+    "negative_production": 0,
+    "season_counts": {
+      "Kharif": 95951,
+      "Rabi": 66987,
+      "Whole Year": 57305,
+      "Summer": 14841,
+      "Winter": 6058,
+      "Autumn": 4949
+    },
+    "raw_rows_by_year": {
+      "1997": 8899,
+      "1998": 11533,
+      "1999": 12515,
+      "2000": 13658,
+      "2001": 13361,
+      "2002": 16671,
+      "2003": 17287,
+      "2004": 14117,
+      "2005": 13799,
+      "2006": 14328,
+      "2007": 14526,
+      "2008": 14550,
+      "2009": 14116,
+      "2010": 14065,
+      "2011": 14071,
+      "2012": 13410,
+      "2013": 13650,
+      "2014": 10973,
+      "2015": 562
+    },
+    "units": "not encoded; production/area ratio reported without asserting verified tonnes/hectare"
+  },
+  "preprocessing_summary": {
+    "annual_panel_rows": 210131,
+    "annual_groups_by_decision": {
+      "included": 210131,
+      "invalid_or_missing_component": 3713,
+      "whole_year_overlap": 362
+    },
+    "raw_rows_by_decision": {
+      "included": 241302,
+      "invalid_or_missing_component": 3997,
+      "whole_year_overlap": 792
+    },
+    "no_production_imputation": true,
+    "outliers_removed": 0
+  },
+  "best_model_summary": {
+    "best_by_validation_RMSE": "XGBoost_Tuned",
+    "validation": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 2224,
+        "MAE": 0.27552667726491636,
+        "RMSE": 0.529400158832265,
+        "MAPE": 17.914180905917075,
+        "MAPE_n": 2224,
+        "sMAPE": 16.457721230262358,
+        "MASE": 2.9853032244920605,
+        "MFE": 0.10234309785389051
+      }
+    ],
+    "test_one_step": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 3336,
+        "MAE": 0.3369237065129647,
+        "RMSE": 0.5617434640622884,
+        "MAPE": 24.765871069389913,
+        "MAPE_n": 3335,
+        "sMAPE": 19.705807525771938,
+        "MASE": 3.6770389263668233,
+        "MFE": -0.08638080513632718,
+        "RMSE_improvement_vs_naive_pct": 1.10991391279055
+      }
+    ],
+    "fixed_origin_three_step": [
+      {
+        "model": "XGBoost_Tuned",
+        "n": 3336,
+        "MAE": 0.3748068059641779,
+        "RMSE": 0.6283375698152623,
+        "MAPE": 25.81432429363452,
+        "MAPE_n": 3335,
+        "sMAPE": 21.037626901423934,
+        "MASE": 4.5406517116229415,
+        "MFE": -0.09188870692072604,
+        "RMSE_improvement_vs_naive_pct": -1.4908186162008619
+      }
+    ],
+    "test_lowest_RMSE": "LSTM",
+    "test_lowest_MAE": "PatchTransformerTiny",
+    "test_lowest_MAPE": "Naive",
+    "evaluated_models": [
+      "LSTM",
+      "PatchTransformerTiny",
+      "GRU",
+      "XGBoost_Tuned",
+      "Naive",
+      "SES_LS",
+      "MA3",
+      "Drift",
+      "Mean",
+      "DampedHolt_LS",
+      "Holt_LS",
+      "AR1_OLS"
+    ],
+    "failed_fits": 0,
+    "optimizer_non_success": 0,
+    "negative_test_predictions": 29,
+    "negative_future_predictions": 0,
+    "runtime_seconds": 144.7274141000089
+  },
+  "model_training_status": {
+    "LSTM": {
+      "status": "trained and evaluated",
+      "selected_epochs": 49,
+      "parameter_count": 1233,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "GRU": {
+      "status": "trained and evaluated",
+      "selected_epochs": 52,
+      "parameter_count": 929,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "PatchTransformerTiny": {
+      "status": "trained and evaluated",
+      "selected_epochs": 31,
+      "parameter_count": 657,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "Prophet": {
+      "status": "excluded after runtime failure",
+      "error": "Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\lxy_g1j0.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\jfuwmkg1.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\prophet_model1ur9o_is\\prophet_model-20261118193147.csv method=optimize algorithm=newton iter=10000' failed: ",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_12292\\4257671604.py\", line 18, in <module>\n    pp=prophet_predictions(prior,[2010,2011],'validation_one_step');rmse=np.sqrt(np.mean((pp.actual-pp.prediction)**2));pv.append({'changepoint_prior_scale':prior,'validation_RMSE':rmse});prior_predictions[prior]=pp\n       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_12292\\4257671604.py\", line 13, in prophet_predictions\n    m.fit(frame,seed=42);yrs=years if mode=='fixed_origin' else [origin+1];pr=m.predict(pd.DataFrame({'ds':pd.to_datetime([str(y)+'-01-01' for y in yrs])})).yhat.values\n    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\forecaster.py\", line 1442, in fit\n    self.params = stan_backend.fit(stan_init, dat, **kwargs)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 169, in fit\n    raise e\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 165, in fit\n    self.stan_fit = self.model.optimize(**args)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\utils\\deprecation.py\", line 37, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\model.py\", line 660, in optimize\n    raise RuntimeError(msg)\nRuntimeError: Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\lxy_g1j0.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\jfuwmkg1.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp5q9i28jc\\prophet_model1ur9o_is\\prophet_model-20261118193147.csv method=optimize algorithm=newton iter=10000' failed: \n"
+    },
+    "XGBoost_Tuned": {
+      "status": "trained and evaluated",
+      "trial_count": 12,
+      "parameters": {
+        "n_estimators": 250,
+        "max_depth": 3,
+        "learning_rate": 0.03,
+        "subsample": 0.8,
+        "colsample_bytree": 0.9,
+        "reg_lambda": 10
+      }
+    },
+    "ARIMA": {
+      "status": "excluded: environment block",
+      "error": "Windows application-control policy blocks statsmodels state-space _inversions extension; no policy changes attempted"
+    },
+    "SARIMA_seasonal_HW": {
+      "status": "excluded: no justified annual periodicity"
+    },
+    "ARCH_GARCH_VAR": {
+      "status": "not fit; short annual histories and inadequate validated multivariate/volatility design"
+    }
+  },
+  "xgboost_selection": {
+    "trial_count": 12,
+    "selected_trial": 1,
+    "parameters": {
+      "n_estimators": 250,
+      "max_depth": 3,
+      "learning_rate": 0.03,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10
+    },
+    "criterion": "expanding validation RMSE, 2010 and 2011",
+    "seed": 42
+  },
+  "experimental_design": {
+    "crops": [
+      "Rice",
+      "Maize",
+      "Wheat",
+      "Rapeseed &Mustard"
+    ],
+    "n_series": 1112,
+    "n_panel_observations": 11120,
+    "excluded_incomplete_series": 1283,
+    "train_final": [
+      2005,
+      2011
+    ],
+    "validation_targets": [
+      2010,
+      2011
+    ],
+    "validation_origins": [
+      2009,
+      2010
+    ],
+    "one_step_test_targets": [
+      2012,
+      2013,
+      2014
+    ],
+    "fixed_origin_test": {
+      "origin": 2011,
+      "targets": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    "raw_2015_excluded": "562 records; incomplete coverage relative to other years",
+    "modeled_cutoff": 2014,
+    "future_targets": [
+      2015,
+      2016,
+      2017
+    ],
+    "survivor_bias": "eligibility requires complete test-era observations",
+    "seed": 42,
+    "series_selection": "four named crops matching earlier experiment scope",
+    "units": "production units / area units; physical labels absent"
+  },
+  "test_leaderboard": [
+    {
+      "model": "LSTM",
+      "n": 3336,
+      "MAE": 0.326497898846882,
+      "RMSE": 0.545657827129418,
+      "MAPE": 23.561180749558982,
+      "MAPE_n": 3335,
+      "sMAPE": 19.470331058412718,
+      "MASE": 3.502826510244353,
+      "MFE": -0.037365433901401,
+      "RMSE_improvement_vs_naive_pct": 3.941651392307943
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "n": 3336,
+      "MAE": 0.3253415389465,
+      "RMSE": 0.549614640020464,
+      "MAPE": 22.6653057984632,
+      "MAPE_n": 3335,
+      "sMAPE": 18.992211763870472,
+      "MASE": 3.500578444655022,
+      "MFE": -0.018563780421533,
+      "RMSE_improvement_vs_naive_pct": 3.245088650666406
+    },
+    {
+      "model": "GRU",
+      "n": 3336,
+      "MAE": 0.33212317063701,
+      "RMSE": 0.551099064881192,
+      "MAPE": 25.16328078517354,
+      "MAPE_n": 3335,
+      "sMAPE": 20.297188186025192,
+      "MASE": 3.60608110954572,
+      "MFE": -0.059067533948573,
+      "RMSE_improvement_vs_naive_pct": 2.983768472224368
+    },
+    {
+      "model": "XGBoost_Tuned",
+      "n": 3336,
+      "MAE": 0.336923706512965,
+      "RMSE": 0.561743464062288,
+      "MAPE": 24.765871069389913,
+      "MAPE_n": 3335,
+      "sMAPE": 19.705807525771938,
+      "MASE": 3.677038926366823,
+      "MFE": -0.086380805136327,
+      "RMSE_improvement_vs_naive_pct": 1.10991391279055
+    },
+    {
+      "model": "Naive",
+      "n": 3336,
+      "MAE": 0.329782974176648,
+      "RMSE": 0.568048311300788,
+      "MAPE": 20.6568782576068,
+      "MAPE_n": 3335,
+      "sMAPE": 18.654840272647505,
+      "MASE": 3.452377970744767,
+      "MFE": -0.00688763733072,
+      "RMSE_improvement_vs_naive_pct": 0.0
+    },
+    {
+      "model": "SES_LS",
+      "n": 3336,
+      "MAE": 0.342786459176955,
+      "RMSE": 0.574473554868518,
+      "MAPE": 21.16603619972384,
+      "MAPE_n": 3335,
+      "sMAPE": 19.332585823664527,
+      "MASE": 3.500811145765442,
+      "MFE": 0.03743402295945,
+      "RMSE_improvement_vs_naive_pct": -1.131108646906731
+    },
+    {
+      "model": "MA3",
+      "n": 3336,
+      "MAE": 0.339886310740626,
+      "RMSE": 0.579555899226321,
+      "MAPE": 20.885356515111777,
+      "MAPE_n": 3335,
+      "sMAPE": 19.289012290729456,
+      "MASE": 3.887990856274722,
+      "MFE": 0.074899411244176,
+      "RMSE_improvement_vs_naive_pct": -2.025811484093998
+    },
+    {
+      "model": "Drift",
+      "n": 3336,
+      "MAE": 0.362898531438651,
+      "RMSE": 0.616295606531903,
+      "MAPE": 22.698865694349394,
+      "MAPE_n": 3335,
+      "sMAPE": 20.37598823905045,
+      "MASE": 3.641981152136122,
+      "MFE": -0.060649294369144,
+      "RMSE_improvement_vs_naive_pct": -8.49351970092691
+    },
+    {
+      "model": "Mean",
+      "n": 3336,
+      "MAE": 0.407220777144573,
+      "RMSE": 0.634924001868391,
+      "MAPE": 23.512636175253153,
+      "MAPE_n": 3335,
+      "sMAPE": 23.57734879917979,
+      "MASE": 4.670550451981768,
+      "MFE": 0.219418187509602,
+      "RMSE_improvement_vs_naive_pct": -11.772887840202095
+    },
+    {
+      "model": "DampedHolt_LS",
+      "n": 3336,
+      "MAE": 0.369101732408459,
+      "RMSE": 0.659144883563647,
+      "MAPE": 22.91092586060245,
+      "MAPE_n": 3335,
+      "sMAPE": 20.0694335412542,
+      "MASE": 4.400713812881366,
+      "MFE": -0.0572464401035,
+      "RMSE_improvement_vs_naive_pct": -16.036764910761757
+    },
+    {
+      "model": "Holt_LS",
+      "n": 3336,
+      "MAE": 0.400136981648247,
+      "RMSE": 0.697437836859994,
+      "MAPE": 24.670838165329933,
+      "MAPE_n": 3335,
+      "sMAPE": 21.504707946801773,
+      "MASE": 4.47413376399595,
+      "MFE": -0.089428446651972,
+      "RMSE_improvement_vs_naive_pct": -22.777908671696288
+    },
+    {
+      "model": "AR1_OLS",
+      "n": 3336,
+      "MAE": 0.774659953227324,
+      "RMSE": 5.349867352234294,
+      "MAPE": 38.934118444527634,
+      "MAPE_n": 3335,
+      "sMAPE": 23.83435102996597,
+      "MASE": 31.217519975744302,
+      "MFE": -0.308900712458951,
+      "RMSE_improvement_vs_naive_pct": -841.7979502453767
+    }
+  ],
+  "validation_leaderboard": [
+    {
+      "model": "XGBoost_Tuned",
+      "n": 2224,
+      "MAE": 0.275526677264916,
+      "RMSE": 0.529400158832265,
+      "MAPE": 17.914180905917075,
+      "MAPE_n": 2224,
+      "sMAPE": 16.457721230262358,
+      "MASE": 2.98530322449206,
+      "MFE": 0.102343097853891
+    },
+    {
+      "model": "LSTM",
+      "n": 2224,
+      "MAE": 0.276754781265467,
+      "RMSE": 0.533000755522676,
+      "MAPE": 19.31280928527236,
+      "MAPE_n": 2224,
+      "sMAPE": 17.29849628101784,
+      "MASE": 3.588684835416836,
+      "MFE": 0.108937553970555
+    },
+    {
+      "model": "GRU",
+      "n": 2224,
+      "MAE": 0.282133474632142,
+      "RMSE": 0.538972387164529,
+      "MAPE": 20.26279122391277,
+      "MAPE_n": 2224,
+      "sMAPE": 18.022455548646207,
+      "MASE": 3.648946017010756,
+      "MFE": 0.127043947637336
+    },
+    {
+      "model": "MA3",
+      "n": 2224,
+      "MAE": 0.281548208401806,
+      "RMSE": 0.540397214632566,
+      "MAPE": 16.376748889851076,
+      "MAPE_n": 2224,
+      "sMAPE": 16.498992344852503,
+      "MASE": 3.10018789207664,
+      "MFE": 0.169820321648927
+    },
+    {
+      "model": "Mean",
+      "n": 2224,
+      "MAE": 0.307891818407747,
+      "RMSE": 0.546749839637793,
+      "MAPE": 17.47394554132331,
+      "MAPE_n": 2224,
+      "sMAPE": 17.780393160395263,
+      "MASE": 3.246225796529773,
+      "MFE": 0.205564813081518
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "n": 2224,
+      "MAE": 0.279883733343433,
+      "RMSE": 0.548782996058908,
+      "MAPE": 18.795653117461196,
+      "MAPE_n": 2224,
+      "sMAPE": 17.124130631245237,
+      "MASE": 3.323531717850405,
+      "MFE": 0.128316014139608
+    },
+    {
+      "model": "SES_LS",
+      "n": 2224,
+      "MAE": 0.294345709371183,
+      "RMSE": 0.63582447524017,
+      "MAPE": 17.191219140651118,
+      "MAPE_n": 2224,
+      "sMAPE": 16.961976364679934,
+      "MASE": 3.120670406666318,
+      "MFE": 0.161728895910591
+    },
+    {
+      "model": "Naive",
+      "n": 2224,
+      "MAE": 0.296548305623884,
+      "RMSE": 0.648529965959714,
+      "MAPE": 17.74972739176072,
+      "MAPE_n": 2224,
+      "sMAPE": 17.413948453913783,
+      "MASE": 3.124930647253777,
+      "MFE": 0.127435902814257
+    },
+    {
+      "model": "Drift",
+      "n": 2224,
+      "MAE": 0.325834270204848,
+      "RMSE": 0.724308271879829,
+      "MAPE": 20.242465457561938,
+      "MAPE_n": 2224,
+      "sMAPE": 19.760506587520684,
+      "MASE": 3.237412548614436,
+      "MFE": 0.095689872624358
+    },
+    {
+      "model": "DampedHolt_LS",
+      "n": 2224,
+      "MAE": 0.324379359093507,
+      "RMSE": 0.764946831230671,
+      "MAPE": 19.674660658485315,
+      "MAPE_n": 2224,
+      "sMAPE": 19.236001414602512,
+      "MASE": 3.232684545619956,
+      "MFE": 0.117227111813839
+    },
+    {
+      "model": "Holt_LS",
+      "n": 2224,
+      "MAE": 0.354796646149082,
+      "RMSE": 0.851022056556433,
+      "MAPE": 21.737702054170743,
+      "MAPE_n": 2224,
+      "sMAPE": 21.20721472643532,
+      "MASE": 3.33471708021142,
+      "MFE": 0.104323147605904
+    },
+    {
+      "model": "AR1_OLS",
+      "n": 2224,
+      "MAE": 0.409295200203683,
+      "RMSE": 2.291226366025312,
+      "MAPE": 29.169227353667566,
+      "MAPE_n": 2224,
+      "sMAPE": 21.48698067482213,
+      "MASE": 3.645814472483532,
+      "MFE": 0.121319006472112
+    }
+  ],
+  "fixed_origin_leaderboard": [
+    {
+      "model": "LSTM",
+      "n": 3336,
+      "MAE": 0.355550278580506,
+      "RMSE": 0.599152081406837,
+      "MAPE": 24.597346476570557,
+      "MAPE_n": 3335,
+      "sMAPE": 20.859464775678582,
+      "MASE": 4.388052494298988,
+      "MFE": 3.1368557881e-05,
+      "RMSE_improvement_vs_naive_pct": 3.223302029418917
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "n": 3336,
+      "MAE": 0.349721216464183,
+      "RMSE": 0.600379456578429,
+      "MAPE": 22.797720069302372,
+      "MAPE_n": 3335,
+      "sMAPE": 19.970882218353385,
+      "MASE": 4.347584256637024,
+      "MFE": 0.024780898643964,
+      "RMSE_improvement_vs_naive_pct": 3.025053003898037
+    },
+    {
+      "model": "GRU",
+      "n": 3336,
+      "MAE": 0.374229552012535,
+      "RMSE": 0.600512662538706,
+      "MAPE": 30.97489977696302,
+      "MAPE_n": 3335,
+      "sMAPE": 23.38521386653191,
+      "MASE": 4.538773476875638,
+      "MFE": -0.06849453166507,
+      "RMSE_improvement_vs_naive_pct": 3.003537209518559
+    },
+    {
+      "model": "Naive",
+      "n": 3336,
+      "MAE": 0.364825314046563,
+      "RMSE": 0.619107795544928,
+      "MAPE": 22.374095991106074,
+      "MAPE_n": 3335,
+      "sMAPE": 21.023267597085557,
+      "MASE": 4.618771451954181,
+      "MFE": 0.050430555007306,
+      "RMSE_improvement_vs_naive_pct": 0.0
+    },
+    {
+      "model": "XGBoost_Tuned",
+      "n": 3336,
+      "MAE": 0.374806805964178,
+      "RMSE": 0.628337569815262,
+      "MAPE": 25.81432429363452,
+      "MAPE_n": 3335,
+      "sMAPE": 21.037626901423934,
+      "MASE": 4.540651711622941,
+      "MFE": -0.091888706920726,
+      "RMSE_improvement_vs_naive_pct": -1.490818616200862
+    },
+    {
+      "model": "SES_LS",
+      "n": 3336,
+      "MAE": 0.384163559034927,
+      "RMSE": 0.634287758545411,
+      "MAPE": 22.88971016137637,
+      "MAPE_n": 3335,
+      "sMAPE": 22.139248183422158,
+      "MASE": 4.717690527746251,
+      "MFE": 0.119148495528446,
+      "RMSE_improvement_vs_naive_pct": -2.45190952362695
+    },
+    {
+      "model": "MA3",
+      "n": 3336,
+      "MAE": 0.388430895019154,
+      "RMSE": 0.636349728930788,
+      "MAPE": 23.06251929486448,
+      "MAPE_n": 3335,
+      "sMAPE": 22.471014307383545,
+      "MASE": 4.766513318387657,
+      "MFE": 0.1636575836221,
+      "RMSE_improvement_vs_naive_pct": -2.784964671731305
+    },
+    {
+      "model": "Mean",
+      "n": 3336,
+      "MAE": 0.431898986632141,
+      "RMSE": 0.669702724510415,
+      "MAPE": 24.688844305735707,
+      "MAPE_n": 3335,
+      "sMAPE": 25.29006131514311,
+      "MASE": 5.006736573713486,
+      "MFE": 0.250262020886037,
+      "RMSE_improvement_vs_naive_pct": -8.172232578811967
+    },
+    {
+      "model": "DampedHolt_LS",
+      "n": 3336,
+      "MAE": 0.425057788090788,
+      "RMSE": 0.739122599540201,
+      "MAPE": 25.884070384389585,
+      "MAPE_n": 3335,
+      "sMAPE": 23.05255235617947,
+      "MASE": 4.734248048203832,
+      "MFE": -0.022928894484593,
+      "RMSE_improvement_vs_naive_pct": -19.385122406613874
+    },
+    {
+      "model": "Drift",
+      "n": 3336,
+      "MAE": 0.447086364746766,
+      "RMSE": 0.7601273072822,
+      "MAPE": 27.3798851383524,
+      "MAPE_n": 3335,
+      "sMAPE": 24.31228053459883,
+      "MASE": 4.783293992439384,
+      "MFE": -0.056363421163139,
+      "RMSE_improvement_vs_naive_pct": -22.777860778372006
+    },
+    {
+      "model": "Holt_LS",
+      "n": 3336,
+      "MAE": 0.509628147514033,
+      "RMSE": 0.879638771914976,
+      "MAPE": 30.799044686762723,
+      "MAPE_n": 3335,
+      "sMAPE": 26.50013806372554,
+      "MASE": 4.99933305600045,
+      "MFE": -0.110984328750266,
+      "RMSE_improvement_vs_naive_pct": -42.081682421836256
+    },
+    {
+      "model": "AR1_OLS",
+      "n": 3336,
+      "MAE": 346.0453573281798,
+      "RMSE": 14099.258119825912,
+      "MAPE": 10965.292563012468,
+      "MAPE_n": 3335,
+      "sMAPE": 25.839627198305664,
+      "MASE": 21397.642289676227,
+      "MFE": 42.92525169185672,
+      "RMSE_improvement_vs_naive_pct": -2277251.088337693
+    }
+  ],
+  "weighted_crop_series": [
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2005,
+      "area": 3089872.0,
+      "production": 7198923.7,
+      "yield_ratio": 2.329845281616844
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2006,
+      "area": 3203334.0,
+      "production": 7622864.3,
+      "yield_ratio": 2.379665779466019
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2007,
+      "area": 3351505.0,
+      "production": 8805040.1,
+      "yield_ratio": 2.627189904237052
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2008,
+      "area": 3302665.0,
+      "production": 9063534.9,
+      "yield_ratio": 2.744309489457756
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2009,
+      "area": 3333813.0,
+      "production": 8100470.3,
+      "yield_ratio": 2.42979144301135
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2010,
+      "area": 3482337.0,
+      "production": 11049340.5,
+      "yield_ratio": 3.17296703334571
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2011,
+      "area": 3589216.0,
+      "production": 10700762.4,
+      "yield_ratio": 2.981364844021647
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2012,
+      "area": 3547323.0,
+      "production": 10768501.2,
+      "yield_ratio": 3.035669771261314
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2013,
+      "area": 3717848.0,
+      "production": 12311993.4,
+      "yield_ratio": 3.311591382972085
+    },
+    {
+      "Crop": "Maize",
+      "Crop_Year": 2014,
+      "area": 3563525.0,
+      "production": 11383860.8,
+      "yield_ratio": 3.194550564399015
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2005,
+      "area": 1440285.0,
+      "production": 1295848.2,
+      "yield_ratio": 0.89971651443985
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2006,
+      "area": 1493421.0,
+      "production": 1245888.0,
+      "yield_ratio": 0.834251024995631
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2007,
+      "area": 1492072.0,
+      "production": 1375583.0,
+      "yield_ratio": 0.921928030282721
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2008,
+      "area": 1509829.0,
+      "production": 1336664.1,
+      "yield_ratio": 0.885308270009385
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2009,
+      "area": 1508283.0,
+      "production": 1434943.3,
+      "yield_ratio": 0.951375371863238
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2010,
+      "area": 1463382.0,
+      "production": 1448624.5,
+      "yield_ratio": 0.989915483448614
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2011,
+      "area": 1495378.0,
+      "production": 1434315.2,
+      "yield_ratio": 0.959165642399447
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2012,
+      "area": 1560681.0,
+      "production": 1664507.9,
+      "yield_ratio": 1.066526663680791
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2013,
+      "area": 1554917.0,
+      "production": 1481586.9,
+      "yield_ratio": 0.952839862192001
+    },
+    {
+      "Crop": "Rapeseed &Mustard",
+      "Crop_Year": 2014,
+      "area": 1522095.0,
+      "production": 1299834.8,
+      "yield_ratio": 0.853977445560231
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2005,
+      "area": 31328890.0,
+      "production": 63133477.0,
+      "yield_ratio": 2.015183972365443
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2006,
+      "area": 31088975.0,
+      "production": 62803447.0,
+      "yield_ratio": 2.020119576151996
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2007,
+      "area": 29520636.0,
+      "production": 61332372.0,
+      "yield_ratio": 2.07761011653001
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2008,
+      "area": 31929498.0,
+      "production": 66318219.07,
+      "yield_ratio": 2.07702041134502
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2009,
+      "area": 30208319.0,
+      "production": 61392400.31,
+      "yield_ratio": 2.032301112484942
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2010,
+      "area": 29620722.5,
+      "production": 64390281.1,
+      "yield_ratio": 2.173825473028215
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2011,
+      "area": 29516558.74,
+      "production": 69340054.48,
+      "yield_ratio": 2.349191689003784
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2012,
+      "area": 36114644.0,
+      "production": 74001913.0,
+      "yield_ratio": 2.04908327491751
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2013,
+      "area": 29223955.0,
+      "production": 71765807.0,
+      "yield_ratio": 2.455718502167144
+    },
+    {
+      "Crop": "Rice",
+      "Crop_Year": 2014,
+      "area": 29152244.0,
+      "production": 74159236.0,
+      "yield_ratio": 2.543860294253849
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2005,
+      "area": 16568446.0,
+      "production": 43816370.7,
+      "yield_ratio": 2.644567311864976
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2006,
+      "area": 16704804.0,
+      "production": 46886774.8,
+      "yield_ratio": 2.806783892825082
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2007,
+      "area": 15554292.0,
+      "production": 47016701.2,
+      "yield_ratio": 3.022747753481804
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2008,
+      "area": 16728452.0,
+      "production": 50331603.6,
+      "yield_ratio": 3.008742446700986
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2009,
+      "area": 16898974.0,
+      "production": 48892137.6,
+      "yield_ratio": 2.893201539927809
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2010,
+      "area": 16861231.0,
+      "production": 53515332.3,
+      "yield_ratio": 3.173868639840116
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2011,
+      "area": 16494915.0,
+      "production": 57176122.3,
+      "yield_ratio": 3.466287780203778
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2012,
+      "area": 15959154.0,
+      "production": 52719049.6,
+      "yield_ratio": 3.303373700134732
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2013,
+      "area": 16218338.0,
+      "production": 54097840.4,
+      "yield_ratio": 3.335597050696563
+    },
+    {
+      "Crop": "Wheat",
+      "Crop_Year": 2014,
+      "area": 16256888.0,
+      "production": 38172815.8,
+      "yield_ratio": 2.348101051074474
+    }
+  ],
+  "hyperparameter_results": [
+    {
+      "trial": 0,
+      "status": "completed",
+      "n_estimators": 150,
+      "max_depth": 2,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "model": "XGB_trial_00",
+      "n": 2224,
+      "MAE": 0.276818052480806,
+      "RMSE": 0.529745753139455,
+      "MAPE": 18.789208088364248,
+      "MAPE_n": 2224,
+      "sMAPE": 16.925460651999487,
+      "MASE": 3.333389434487583,
+      "MFE": 0.102707959988396,
+      "reg_alpha": null,
+      "min_child_weight": null
+    },
+    {
+      "trial": 1,
+      "status": "completed",
+      "n_estimators": 250,
+      "max_depth": 3,
+      "learning_rate": 0.03,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_01",
+      "n": 2224,
+      "MAE": 0.275526677264916,
+      "RMSE": 0.529400158832265,
+      "MAPE": 17.914180905917075,
+      "MAPE_n": 2224,
+      "sMAPE": 16.457721230262358,
+      "MASE": 2.98530322449206,
+      "MFE": 0.102343097853891,
+      "reg_alpha": null,
+      "min_child_weight": null
+    },
+    {
+      "trial": 2,
+      "status": "completed",
+      "n_estimators": 100,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.85,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_02",
+      "n": 2224,
+      "MAE": 0.277732930610672,
+      "RMSE": 0.536382998266135,
+      "MAPE": 18.14487241841408,
+      "MAPE_n": 2224,
+      "sMAPE": 16.580292448478104,
+      "MASE": 3.11524096610425,
+      "MFE": 0.107563595437044,
+      "reg_alpha": 0.0,
+      "min_child_weight": 10.0
+    },
+    {
+      "trial": 3,
+      "status": "completed",
+      "n_estimators": 100,
+      "max_depth": 2,
+      "learning_rate": 0.05,
+      "subsample": 1.0,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_03",
+      "n": 2224,
+      "MAE": 0.28213924100383,
+      "RMSE": 0.534902769000082,
+      "MAPE": 20.806710841860816,
+      "MAPE_n": 2224,
+      "sMAPE": 17.77480548843247,
+      "MASE": 3.872429388912664,
+      "MFE": 0.109645552050933,
+      "reg_alpha": 1.0,
+      "min_child_weight": 10.0
+    },
+    {
+      "trial": 4,
+      "status": "completed",
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "model": "XGB_trial_04",
+      "n": 2224,
+      "MAE": 0.277297447534895,
+      "RMSE": 0.531997772021395,
+      "MAPE": 17.986155765293795,
+      "MAPE_n": 2224,
+      "sMAPE": 16.544181872078838,
+      "MASE": 2.980769700613241,
+      "MFE": 0.099406045823479,
+      "reg_alpha": 0.0,
+      "min_child_weight": 10.0
+    },
+    {
+      "trial": 5,
+      "status": "completed",
+      "n_estimators": 350,
+      "max_depth": 3,
+      "learning_rate": 0.05,
+      "subsample": 1.0,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "model": "XGB_trial_05",
+      "n": 2224,
+      "MAE": 0.279435903452371,
+      "RMSE": 0.533294380168891,
+      "MAPE": 17.559354258734675,
+      "MAPE_n": 2224,
+      "sMAPE": 16.36950635965008,
+      "MASE": 3.226048163900976,
+      "MFE": 0.098770984209425,
+      "reg_alpha": 0.1,
+      "min_child_weight": 1.0
+    },
+    {
+      "trial": 6,
+      "status": "completed",
+      "n_estimators": 100,
+      "max_depth": 3,
+      "learning_rate": 0.08,
+      "subsample": 0.7,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_06",
+      "n": 2224,
+      "MAE": 0.276110342241389,
+      "RMSE": 0.532376899652468,
+      "MAPE": 18.096826498925918,
+      "MAPE_n": 2224,
+      "sMAPE": 16.510487386415264,
+      "MASE": 3.150964366497764,
+      "MFE": 0.10214798334235,
+      "reg_alpha": 0.0,
+      "min_child_weight": 5.0
+    },
+    {
+      "trial": 7,
+      "status": "completed",
+      "n_estimators": 100,
+      "max_depth": 4,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_07",
+      "n": 2224,
+      "MAE": 0.277748067310197,
+      "RMSE": 0.534252271518089,
+      "MAPE": 17.717321416741736,
+      "MAPE_n": 2224,
+      "sMAPE": 16.377948259167752,
+      "MASE": 3.040010920877001,
+      "MFE": 0.101270572854026,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10.0
+    },
+    {
+      "trial": 8,
+      "status": "completed",
+      "n_estimators": 350,
+      "max_depth": 4,
+      "learning_rate": 0.08,
+      "subsample": 0.7,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "model": "XGB_trial_08",
+      "n": 2224,
+      "MAE": 0.287601202987158,
+      "RMSE": 0.542524646719309,
+      "MAPE": 18.06419076148062,
+      "MAPE_n": 2224,
+      "sMAPE": 16.80849580406626,
+      "MASE": 3.6665656905692,
+      "MFE": 0.093083008445874,
+      "reg_alpha": 0.1,
+      "min_child_weight": 1.0
+    },
+    {
+      "trial": 9,
+      "status": "completed",
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 1.0,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "model": "XGB_trial_09",
+      "n": 2224,
+      "MAE": 0.278230879394082,
+      "RMSE": 0.532023493286991,
+      "MAPE": 17.763376131101836,
+      "MAPE_n": 2224,
+      "sMAPE": 16.441644924256106,
+      "MASE": 2.673434133788571,
+      "MFE": 0.098421790391308,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10.0
+    },
+    {
+      "trial": 10,
+      "status": "completed",
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 5.0,
+      "model": "XGB_trial_10",
+      "n": 2224,
+      "MAE": 0.278535908936482,
+      "RMSE": 0.532952030577491,
+      "MAPE": 17.9214060220684,
+      "MAPE_n": 2224,
+      "sMAPE": 16.521957445567175,
+      "MASE": 2.764000051601408,
+      "MFE": 0.098867905696835,
+      "reg_alpha": 1.0,
+      "min_child_weight": 1.0
+    },
+    {
+      "trial": 11,
+      "status": "completed",
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 1.0,
+      "model": "XGB_trial_11",
+      "n": 2224,
+      "MAE": 0.278401583650868,
+      "RMSE": 0.531712810399169,
+      "MAPE": 17.574761232798767,
+      "MAPE_n": 2224,
+      "sMAPE": 16.38825402155204,
+      "MASE": 3.096543571941453,
+      "MFE": 0.100036494590122,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10.0
+    }
+  ],
+  "fixed_origin_error_by_horizon": [
+    {
+      "model": "AR1_OLS",
+      "horizon": 1,
+      "mean": 0.424257158170419,
+      "count": 1112
+    },
+    {
+      "model": "AR1_OLS",
+      "horizon": 2,
+      "mean": 6.32409296842307,
+      "count": 1112
+    },
+    {
+      "model": "AR1_OLS",
+      "horizon": 3,
+      "mean": 1031.387721857946,
+      "count": 1112
+    },
+    {
+      "model": "DampedHolt_LS",
+      "horizon": 1,
+      "mean": 0.307981993842759,
+      "count": 1112
+    },
+    {
+      "model": "DampedHolt_LS",
+      "horizon": 2,
+      "mean": 0.401272922907367,
+      "count": 1112
+    },
+    {
+      "model": "DampedHolt_LS",
+      "horizon": 3,
+      "mean": 0.565918447522237,
+      "count": 1112
+    },
+    {
+      "model": "Drift",
+      "horizon": 1,
+      "mean": 0.295241316094286,
+      "count": 1112
+    },
+    {
+      "model": "Drift",
+      "horizon": 2,
+      "mean": 0.424530779990951,
+      "count": 1112
+    },
+    {
+      "model": "Drift",
+      "horizon": 3,
+      "mean": 0.62148699815506,
+      "count": 1112
+    },
+    {
+      "model": "GRU",
+      "horizon": 1,
+      "mean": 0.276737310617716,
+      "count": 1112
+    },
+    {
+      "model": "GRU",
+      "horizon": 2,
+      "mean": 0.342466182913268,
+      "count": 1112
+    },
+    {
+      "model": "GRU",
+      "horizon": 3,
+      "mean": 0.503485162506619,
+      "count": 1112
+    },
+    {
+      "model": "Holt_LS",
+      "horizon": 1,
+      "mean": 0.327350608265319,
+      "count": 1112
+    },
+    {
+      "model": "Holt_LS",
+      "horizon": 2,
+      "mean": 0.48400989755194,
+      "count": 1112
+    },
+    {
+      "model": "Holt_LS",
+      "horizon": 3,
+      "mean": 0.71752393672484,
+      "count": 1112
+    },
+    {
+      "model": "LSTM",
+      "horizon": 1,
+      "mean": 0.271594454342078,
+      "count": 1112
+    },
+    {
+      "model": "LSTM",
+      "horizon": 2,
+      "mean": 0.328650329520754,
+      "count": 1112
+    },
+    {
+      "model": "LSTM",
+      "horizon": 3,
+      "mean": 0.466406051878686,
+      "count": 1112
+    },
+    {
+      "model": "MA3",
+      "horizon": 1,
+      "mean": 0.312732353593234,
+      "count": 1112
+    },
+    {
+      "model": "MA3",
+      "horizon": 2,
+      "mean": 0.387093234970806,
+      "count": 1112
+    },
+    {
+      "model": "MA3",
+      "horizon": 3,
+      "mean": 0.465467096493421,
+      "count": 1112
+    },
+    {
+      "model": "Mean",
+      "horizon": 1,
+      "mean": 0.374912814884628,
+      "count": 1112
+    },
+    {
+      "model": "Mean",
+      "horizon": 2,
+      "mean": 0.444477723730674,
+      "count": 1112
+    },
+    {
+      "model": "Mean",
+      "horizon": 3,
+      "mean": 0.476306421281121,
+      "count": 1112
+    },
+    {
+      "model": "Naive",
+      "horizon": 1,
+      "mean": 0.266804894352327,
+      "count": 1112
+    },
+    {
+      "model": "Naive",
+      "horizon": 2,
+      "mean": 0.353276578546493,
+      "count": 1112
+    },
+    {
+      "model": "Naive",
+      "horizon": 3,
+      "mean": 0.47439446924087,
+      "count": 1112
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "horizon": 1,
+      "mean": 0.271327445023651,
+      "count": 1112
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "horizon": 2,
+      "mean": 0.327468438241081,
+      "count": 1112
+    },
+    {
+      "model": "PatchTransformerTiny",
+      "horizon": 3,
+      "mean": 0.450367766127816,
+      "count": 1112
+    },
+    {
+      "model": "SES_LS",
+      "horizon": 1,
+      "mean": 0.306085604311635,
+      "count": 1112
+    },
+    {
+      "model": "SES_LS",
+      "horizon": 2,
+      "mean": 0.367274855259486,
+      "count": 1112
+    },
+    {
+      "model": "SES_LS",
+      "horizon": 3,
+      "mean": 0.47913021753366,
+      "count": 1112
+    },
+    {
+      "model": "XGBoost_Tuned",
+      "horizon": 1,
+      "mean": 0.273996650843185,
+      "count": 1112
+    },
+    {
+      "model": "XGBoost_Tuned",
+      "horizon": 2,
+      "mean": 0.348777296054298,
+      "count": 1112
+    },
+    {
+      "model": "XGBoost_Tuned",
+      "horizon": 3,
+      "mean": 0.50164647099505,
+      "count": 1112
+    }
+  ],
+  "reporting": {
+    "1997": 8899,
+    "1998": 11533,
+    "1999": 12515,
+    "2000": 13658,
+    "2001": 13361,
+    "2002": 16671,
+    "2003": 17287,
+    "2004": 14117,
+    "2005": 13799,
+    "2006": 14328,
+    "2007": 14526,
+    "2008": 14550,
+    "2009": 14116,
+    "2010": 14065,
+    "2011": 14071,
+    "2012": 13410,
+    "2013": 13650,
+    "2014": 10973,
+    "2015": 562
+  },
+  "LSTM_loss": [
+    {
+      "epoch": 1,
+      "train_normalized_MSE": 0.8632211264946478,
+      "validation_normalized_MSE": 0.7537813186645508
+    },
+    {
+      "epoch": 2,
+      "train_normalized_MSE": 0.7976097666102347,
+      "validation_normalized_MSE": 0.6835227608680725
+    },
+    {
+      "epoch": 3,
+      "train_normalized_MSE": 0.7214632990548937,
+      "validation_normalized_MSE": 0.6028078198432922
+    },
+    {
+      "epoch": 4,
+      "train_normalized_MSE": 0.6386294019736832,
+      "validation_normalized_MSE": 0.5112402439117432
+    },
+    {
+      "epoch": 5,
+      "train_normalized_MSE": 0.5355738086237324,
+      "validation_normalized_MSE": 0.41224539279937744
+    },
+    {
+      "epoch": 6,
+      "train_normalized_MSE": 0.4330449614593451,
+      "validation_normalized_MSE": 0.31345251202583313
+    },
+    {
+      "epoch": 7,
+      "train_normalized_MSE": 0.32164514965290647,
+      "validation_normalized_MSE": 0.22938066720962524
+    },
+    {
+      "epoch": 8,
+      "train_normalized_MSE": 0.23681361372951124,
+      "validation_normalized_MSE": 0.1809580773115158
+    },
+    {
+      "epoch": 9,
+      "train_normalized_MSE": 0.18714389204978943,
+      "validation_normalized_MSE": 0.17620530724525452
+    },
+    {
+      "epoch": 10,
+      "train_normalized_MSE": 0.17571777501981034,
+      "validation_normalized_MSE": 0.19291186332702637
+    },
+    {
+      "epoch": 11,
+      "train_normalized_MSE": 0.18486562708942153,
+      "validation_normalized_MSE": 0.1998090147972107
+    },
+    {
+      "epoch": 12,
+      "train_normalized_MSE": 0.18228284242770654,
+      "validation_normalized_MSE": 0.18062739074230194
+    },
+    {
+      "epoch": 13,
+      "train_normalized_MSE": 0.16495641412066042,
+      "validation_normalized_MSE": 0.16299960017204285
+    },
+    {
+      "epoch": 14,
+      "train_normalized_MSE": 0.16276176461427333,
+      "validation_normalized_MSE": 0.15637440979480743
+    },
+    {
+      "epoch": 15,
+      "train_normalized_MSE": 0.154805090358789,
+      "validation_normalized_MSE": 0.15351717174053192
+    },
+    {
+      "epoch": 16,
+      "train_normalized_MSE": 0.1467691886124851,
+      "validation_normalized_MSE": 0.15119944512844086
+    },
+    {
+      "epoch": 17,
+      "train_normalized_MSE": 0.14678704609973825,
+      "validation_normalized_MSE": 0.15200737118721008
+    },
+    {
+      "epoch": 18,
+      "train_normalized_MSE": 0.14665460859914478,
+      "validation_normalized_MSE": 0.15242625772953033
+    },
+    {
+      "epoch": 19,
+      "train_normalized_MSE": 0.14676380682763435,
+      "validation_normalized_MSE": 0.15174369513988495
+    },
+    {
+      "epoch": 20,
+      "train_normalized_MSE": 0.14558229611503135,
+      "validation_normalized_MSE": 0.14763028919696808
+    },
+    {
+      "epoch": 21,
+      "train_normalized_MSE": 0.14700590213425727,
+      "validation_normalized_MSE": 0.1442982405424118
+    },
+    {
+      "epoch": 22,
+      "train_normalized_MSE": 0.13488479323095556,
+      "validation_normalized_MSE": 0.14361964166164398
+    },
+    {
+      "epoch": 23,
+      "train_normalized_MSE": 0.13425989668789529,
+      "validation_normalized_MSE": 0.1393226981163025
+    },
+    {
+      "epoch": 24,
+      "train_normalized_MSE": 0.1319796716352161,
+      "validation_normalized_MSE": 0.13769549131393433
+    },
+    {
+      "epoch": 25,
+      "train_normalized_MSE": 0.13124749879185243,
+      "validation_normalized_MSE": 0.13826584815979004
+    },
+    {
+      "epoch": 26,
+      "train_normalized_MSE": 0.13242309202821992,
+      "validation_normalized_MSE": 0.13866670429706573
+    },
+    {
+      "epoch": 27,
+      "train_normalized_MSE": 0.13244945561285498,
+      "validation_normalized_MSE": 0.13439279794692993
+    },
+    {
+      "epoch": 28,
+      "train_normalized_MSE": 0.1236562794275421,
+      "validation_normalized_MSE": 0.133072629570961
+    },
+    {
+      "epoch": 29,
+      "train_normalized_MSE": 0.12824584452582777,
+      "validation_normalized_MSE": 0.1312340945005417
+    },
+    {
+      "epoch": 30,
+      "train_normalized_MSE": 0.12499863102281694,
+      "validation_normalized_MSE": 0.13049644231796265
+    },
+    {
+      "epoch": 31,
+      "train_normalized_MSE": 0.12530075747975342,
+      "validation_normalized_MSE": 0.12849479913711548
+    },
+    {
+      "epoch": 32,
+      "train_normalized_MSE": 0.12390469529217096,
+      "validation_normalized_MSE": 0.1295626312494278
+    },
+    {
+      "epoch": 33,
+      "train_normalized_MSE": 0.12937226296543217,
+      "validation_normalized_MSE": 0.1300063282251358
+    },
+    {
+      "epoch": 34,
+      "train_normalized_MSE": 0.12133014443323767,
+      "validation_normalized_MSE": 0.12860515713691711
+    },
+    {
+      "epoch": 35,
+      "train_normalized_MSE": 0.12406556645957686,
+      "validation_normalized_MSE": 0.1253494769334793
+    },
+    {
+      "epoch": 36,
+      "train_normalized_MSE": 0.12942177866645854,
+      "validation_normalized_MSE": 0.12584981322288513
+    },
+    {
+      "epoch": 37,
+      "train_normalized_MSE": 0.12078857834605004,
+      "validation_normalized_MSE": 0.1261073350906372
+    },
+    {
+      "epoch": 38,
+      "train_normalized_MSE": 0.1166740066284756,
+      "validation_normalized_MSE": 0.12352320551872253
+    },
+    {
+      "epoch": 39,
+      "train_normalized_MSE": 0.12109881307152535,
+      "validation_normalized_MSE": 0.1253499984741211
+    },
+    {
+      "epoch": 40,
+      "train_normalized_MSE": 0.11451573551987572,
+      "validation_normalized_MSE": 0.12387722730636597
+    },
+    {
+      "epoch": 41,
+      "train_normalized_MSE": 0.11436080235800297,
+      "validation_normalized_MSE": 0.1225079596042633
+    },
+    {
+      "epoch": 42,
+      "train_normalized_MSE": 0.1139643970046112,
+      "validation_normalized_MSE": 0.11909516155719757
+    },
+    {
+      "epoch": 43,
+      "train_normalized_MSE": 0.11473285128101171,
+      "validation_normalized_MSE": 0.11946777999401093
+    },
+    {
+      "epoch": 44,
+      "train_normalized_MSE": 0.11391871781657925,
+      "validation_normalized_MSE": 0.11997279524803162
+    },
+    {
+      "epoch": 45,
+      "train_normalized_MSE": 0.11473195217281794,
+      "validation_normalized_MSE": 0.1214231550693512
+    },
+    {
+      "epoch": 46,
+      "train_normalized_MSE": 0.10985014271393097,
+      "validation_normalized_MSE": 0.12012060731649399
+    },
+    {
+      "epoch": 47,
+      "train_normalized_MSE": 0.10684408081306827,
+      "validation_normalized_MSE": 0.11915703862905502
+    },
+    {
+      "epoch": 48,
+      "train_normalized_MSE": 0.10433787069946741,
+      "validation_normalized_MSE": 0.11868871748447418
+    },
+    {
+      "epoch": 49,
+      "train_normalized_MSE": 0.10880185277770749,
+      "validation_normalized_MSE": 0.11644303053617477
+    },
+    {
+      "epoch": 50,
+      "train_normalized_MSE": 0.10964583632328527,
+      "validation_normalized_MSE": 0.11946665495634079
+    },
+    {
+      "epoch": 51,
+      "train_normalized_MSE": 0.1030280814110804,
+      "validation_normalized_MSE": 0.12071207165718079
+    },
+    {
+      "epoch": 52,
+      "train_normalized_MSE": 0.11294146595026949,
+      "validation_normalized_MSE": 0.1182568222284317
+    },
+    {
+      "epoch": 53,
+      "train_normalized_MSE": 0.1065673325344813,
+      "validation_normalized_MSE": 0.11827897280454636
+    },
+    {
+      "epoch": 54,
+      "train_normalized_MSE": 0.1101200345823233,
+      "validation_normalized_MSE": 0.11940716207027435
+    },
+    {
+      "epoch": 55,
+      "train_normalized_MSE": 0.10740005085579783,
+      "validation_normalized_MSE": 0.11946273595094681
+    },
+    {
+      "epoch": 56,
+      "train_normalized_MSE": 0.10700924287168243,
+      "validation_normalized_MSE": 0.12004344910383224
+    },
+    {
+      "epoch": 57,
+      "train_normalized_MSE": 0.10604911034913372,
+      "validation_normalized_MSE": 0.11847332864999771
+    }
+  ],
+  "GRU_loss": [
+    {
+      "epoch": 1,
+      "train_normalized_MSE": 0.959697750832537,
+      "validation_normalized_MSE": 0.814825177192688
+    },
+    {
+      "epoch": 2,
+      "train_normalized_MSE": 0.8527246653604851,
+      "validation_normalized_MSE": 0.731178343296051
+    },
+    {
+      "epoch": 3,
+      "train_normalized_MSE": 0.7667201444399443,
+      "validation_normalized_MSE": 0.6523032188415527
+    },
+    {
+      "epoch": 4,
+      "train_normalized_MSE": 0.681266635870762,
+      "validation_normalized_MSE": 0.5706127882003784
+    },
+    {
+      "epoch": 5,
+      "train_normalized_MSE": 0.5972606848469741,
+      "validation_normalized_MSE": 0.4848896861076355
+    },
+    {
+      "epoch": 6,
+      "train_normalized_MSE": 0.5080817905690173,
+      "validation_normalized_MSE": 0.3953248858451843
+    },
+    {
+      "epoch": 7,
+      "train_normalized_MSE": 0.408148725470193,
+      "validation_normalized_MSE": 0.3068433403968811
+    },
+    {
+      "epoch": 8,
+      "train_normalized_MSE": 0.3091018467927151,
+      "validation_normalized_MSE": 0.22912225127220154
+    },
+    {
+      "epoch": 9,
+      "train_normalized_MSE": 0.24662179848273025,
+      "validation_normalized_MSE": 0.17463253438472748
+    },
+    {
+      "epoch": 10,
+      "train_normalized_MSE": 0.1723481026484812,
+      "validation_normalized_MSE": 0.1535501480102539
+    },
+    {
+      "epoch": 11,
+      "train_normalized_MSE": 0.1506699227171836,
+      "validation_normalized_MSE": 0.16268490254878998
+    },
+    {
+      "epoch": 12,
+      "train_normalized_MSE": 0.15344868911256035,
+      "validation_normalized_MSE": 0.17296858131885529
+    },
+    {
+      "epoch": 13,
+      "train_normalized_MSE": 0.15151776169701445,
+      "validation_normalized_MSE": 0.1675540804862976
+    },
+    {
+      "epoch": 14,
+      "train_normalized_MSE": 0.14826008581000266,
+      "validation_normalized_MSE": 0.15708428621292114
+    },
+    {
+      "epoch": 15,
+      "train_normalized_MSE": 0.14576453292112557,
+      "validation_normalized_MSE": 0.14772889018058777
+    },
+    {
+      "epoch": 16,
+      "train_normalized_MSE": 0.13328839077366342,
+      "validation_normalized_MSE": 0.14306247234344482
+    },
+    {
+      "epoch": 17,
+      "train_normalized_MSE": 0.14312258973824893,
+      "validation_normalized_MSE": 0.1393858939409256
+    },
+    {
+      "epoch": 18,
+      "train_normalized_MSE": 0.13382721188471472,
+      "validation_normalized_MSE": 0.13850539922714233
+    },
+    {
+      "epoch": 19,
+      "train_normalized_MSE": 0.13256501787000421,
+      "validation_normalized_MSE": 0.13780684769153595
+    },
+    {
+      "epoch": 20,
+      "train_normalized_MSE": 0.12079374149120112,
+      "validation_normalized_MSE": 0.13775676488876343
+    },
+    {
+      "epoch": 21,
+      "train_normalized_MSE": 0.13248308153032398,
+      "validation_normalized_MSE": 0.14059996604919434
+    },
+    {
+      "epoch": 22,
+      "train_normalized_MSE": 0.12761776438719935,
+      "validation_normalized_MSE": 0.13751612603664398
+    },
+    {
+      "epoch": 23,
+      "train_normalized_MSE": 0.12314074213127438,
+      "validation_normalized_MSE": 0.13322527706623077
+    },
+    {
+      "epoch": 24,
+      "train_normalized_MSE": 0.12784469535024903,
+      "validation_normalized_MSE": 0.13320022821426392
+    },
+    {
+      "epoch": 25,
+      "train_normalized_MSE": 0.13498558173719927,
+      "validation_normalized_MSE": 0.13099409639835358
+    },
+    {
+      "epoch": 26,
+      "train_normalized_MSE": 0.12333524393306362,
+      "validation_normalized_MSE": 0.1287328600883484
+    },
+    {
+      "epoch": 27,
+      "train_normalized_MSE": 0.11944298531940516,
+      "validation_normalized_MSE": 0.12890087068080902
+    },
+    {
+      "epoch": 28,
+      "train_normalized_MSE": 0.12141119458263727,
+      "validation_normalized_MSE": 0.1316092610359192
+    },
+    {
+      "epoch": 29,
+      "train_normalized_MSE": 0.12114785402584419,
+      "validation_normalized_MSE": 0.13170655071735382
+    },
+    {
+      "epoch": 30,
+      "train_normalized_MSE": 0.12311516908540142,
+      "validation_normalized_MSE": 0.12997493147850037
+    },
+    {
+      "epoch": 31,
+      "train_normalized_MSE": 0.11189217854746812,
+      "validation_normalized_MSE": 0.1280706822872162
+    },
+    {
+      "epoch": 32,
+      "train_normalized_MSE": 0.12043020214965876,
+      "validation_normalized_MSE": 0.1261303424835205
+    },
+    {
+      "epoch": 33,
+      "train_normalized_MSE": 0.11717253462444964,
+      "validation_normalized_MSE": 0.12786801159381866
+    },
+    {
+      "epoch": 34,
+      "train_normalized_MSE": 0.11256267151815429,
+      "validation_normalized_MSE": 0.12782524526119232
+    },
+    {
+      "epoch": 35,
+      "train_normalized_MSE": 0.12314584958467552,
+      "validation_normalized_MSE": 0.12956860661506653
+    },
+    {
+      "epoch": 36,
+      "train_normalized_MSE": 0.11416524868431709,
+      "validation_normalized_MSE": 0.12739087641239166
+    },
+    {
+      "epoch": 37,
+      "train_normalized_MSE": 0.11730556908271296,
+      "validation_normalized_MSE": 0.1265152245759964
+    },
+    {
+      "epoch": 38,
+      "train_normalized_MSE": 0.10890565834028258,
+      "validation_normalized_MSE": 0.1254069209098816
+    },
+    {
+      "epoch": 39,
+      "train_normalized_MSE": 0.11188347107000488,
+      "validation_normalized_MSE": 0.12518589198589325
+    },
+    {
+      "epoch": 40,
+      "train_normalized_MSE": 0.10981877828887898,
+      "validation_normalized_MSE": 0.12258654832839966
+    },
+    {
+      "epoch": 41,
+      "train_normalized_MSE": 0.1095067638930657,
+      "validation_normalized_MSE": 0.12270014733076096
+    },
+    {
+      "epoch": 42,
+      "train_normalized_MSE": 0.11718911045103622,
+      "validation_normalized_MSE": 0.12544164061546326
+    },
+    {
+      "epoch": 43,
+      "train_normalized_MSE": 0.10903436840652563,
+      "validation_normalized_MSE": 0.12620432674884796
+    },
+    {
+      "epoch": 44,
+      "train_normalized_MSE": 0.10694815716940723,
+      "validation_normalized_MSE": 0.12352824211120605
+    },
+    {
+      "epoch": 45,
+      "train_normalized_MSE": 0.11020327370158202,
+      "validation_normalized_MSE": 0.12171241641044617
+    },
+    {
+      "epoch": 46,
+      "train_normalized_MSE": 0.11095800197167362,
+      "validation_normalized_MSE": 0.12303640693426132
+    },
+    {
+      "epoch": 47,
+      "train_normalized_MSE": 0.10240693117002789,
+      "validation_normalized_MSE": 0.12429964542388916
+    },
+    {
+      "epoch": 48,
+      "train_normalized_MSE": 0.10925011969298767,
+      "validation_normalized_MSE": 0.12284979969263077
+    },
+    {
+      "epoch": 49,
+      "train_normalized_MSE": 0.10712160588168412,
+      "validation_normalized_MSE": 0.12222329527139664
+    },
+    {
+      "epoch": 50,
+      "train_normalized_MSE": 0.10614175815805257,
+      "validation_normalized_MSE": 0.12733961641788483
+    },
+    {
+      "epoch": 51,
+      "train_normalized_MSE": 0.1079967432528091,
+      "validation_normalized_MSE": 0.12457288801670074
+    },
+    {
+      "epoch": 52,
+      "train_normalized_MSE": 0.10671224761352265,
+      "validation_normalized_MSE": 0.11941850930452347
+    },
+    {
+      "epoch": 53,
+      "train_normalized_MSE": 0.11052623916444161,
+      "validation_normalized_MSE": 0.12055874615907669
+    },
+    {
+      "epoch": 54,
+      "train_normalized_MSE": 0.10647847149655115,
+      "validation_normalized_MSE": 0.12039171904325485
+    },
+    {
+      "epoch": 55,
+      "train_normalized_MSE": 0.1025533018459519,
+      "validation_normalized_MSE": 0.12379258126020432
+    },
+    {
+      "epoch": 56,
+      "train_normalized_MSE": 0.11362219006895162,
+      "validation_normalized_MSE": 0.12231476604938507
+    },
+    {
+      "epoch": 57,
+      "train_normalized_MSE": 0.10784981142488315,
+      "validation_normalized_MSE": 0.12039512395858765
+    },
+    {
+      "epoch": 58,
+      "train_normalized_MSE": 0.10804840750831494,
+      "validation_normalized_MSE": 0.12238600105047226
+    },
+    {
+      "epoch": 59,
+      "train_normalized_MSE": 0.1035374325814007,
+      "validation_normalized_MSE": 0.12241345643997192
+    },
+    {
+      "epoch": 60,
+      "train_normalized_MSE": 0.10420660985459526,
+      "validation_normalized_MSE": 0.12070765346288681
+    }
+  ],
+  "PatchTransformerTiny_loss": [
+    {
+      "epoch": 1,
+      "train_normalized_MSE": 1.2136069501904274,
+      "validation_normalized_MSE": 0.6775615215301514
+    },
+    {
+      "epoch": 2,
+      "train_normalized_MSE": 0.6241799695886296,
+      "validation_normalized_MSE": 0.29296422004699707
+    },
+    {
+      "epoch": 3,
+      "train_normalized_MSE": 0.3127408956023429,
+      "validation_normalized_MSE": 0.22690489888191223
+    },
+    {
+      "epoch": 4,
+      "train_normalized_MSE": 0.29851665803425603,
+      "validation_normalized_MSE": 0.20376431941986084
+    },
+    {
+      "epoch": 5,
+      "train_normalized_MSE": 0.22868797252718492,
+      "validation_normalized_MSE": 0.16373229026794434
+    },
+    {
+      "epoch": 6,
+      "train_normalized_MSE": 0.2260147245239011,
+      "validation_normalized_MSE": 0.14922307431697845
+    },
+    {
+      "epoch": 7,
+      "train_normalized_MSE": 0.23908195446292274,
+      "validation_normalized_MSE": 0.14039863646030426
+    },
+    {
+      "epoch": 8,
+      "train_normalized_MSE": 0.1933141463308883,
+      "validation_normalized_MSE": 0.14725880324840546
+    },
+    {
+      "epoch": 9,
+      "train_normalized_MSE": 0.20321917442752302,
+      "validation_normalized_MSE": 0.13820421695709229
+    },
+    {
+      "epoch": 10,
+      "train_normalized_MSE": 0.18236470769206398,
+      "validation_normalized_MSE": 0.1333853155374527
+    },
+    {
+      "epoch": 11,
+      "train_normalized_MSE": 0.1800048062376839,
+      "validation_normalized_MSE": 0.12988552451133728
+    },
+    {
+      "epoch": 12,
+      "train_normalized_MSE": 0.17670852503330586,
+      "validation_normalized_MSE": 0.12564216554164886
+    },
+    {
+      "epoch": 13,
+      "train_normalized_MSE": 0.20282469539762402,
+      "validation_normalized_MSE": 0.12447358667850494
+    },
+    {
+      "epoch": 14,
+      "train_normalized_MSE": 0.18408421067882785,
+      "validation_normalized_MSE": 0.12739968299865723
+    },
+    {
+      "epoch": 15,
+      "train_normalized_MSE": 0.1590422712427249,
+      "validation_normalized_MSE": 0.12591120600700378
+    },
+    {
+      "epoch": 16,
+      "train_normalized_MSE": 0.16613643487794794,
+      "validation_normalized_MSE": 0.12395714968442917
+    },
+    {
+      "epoch": 17,
+      "train_normalized_MSE": 0.15671111289545786,
+      "validation_normalized_MSE": 0.11991994827985764
+    },
+    {
+      "epoch": 18,
+      "train_normalized_MSE": 0.12990777199860098,
+      "validation_normalized_MSE": 0.12357649952173233
+    },
+    {
+      "epoch": 19,
+      "train_normalized_MSE": 0.13868007428354498,
+      "validation_normalized_MSE": 0.12329773604869843
+    },
+    {
+      "epoch": 20,
+      "train_normalized_MSE": 0.13541517433502692,
+      "validation_normalized_MSE": 0.12185349315404892
+    },
+    {
+      "epoch": 21,
+      "train_normalized_MSE": 0.166634469420361,
+      "validation_normalized_MSE": 0.11847398430109024
+    },
+    {
+      "epoch": 22,
+      "train_normalized_MSE": 0.15626843627408255,
+      "validation_normalized_MSE": 0.11821203678846359
+    },
+    {
+      "epoch": 23,
+      "train_normalized_MSE": 0.13808655074174456,
+      "validation_normalized_MSE": 0.11994267255067825
+    },
+    {
+      "epoch": 24,
+      "train_normalized_MSE": 0.15310749727830614,
+      "validation_normalized_MSE": 0.12001829594373703
+    },
+    {
+      "epoch": 25,
+      "train_normalized_MSE": 0.14239911220485357,
+      "validation_normalized_MSE": 0.11979362368583679
+    },
+    {
+      "epoch": 26,
+      "train_normalized_MSE": 0.13785240713426536,
+      "validation_normalized_MSE": 0.12349172681570053
+    },
+    {
+      "epoch": 27,
+      "train_normalized_MSE": 0.14549296424328853,
+      "validation_normalized_MSE": 0.11978436261415482
+    },
+    {
+      "epoch": 28,
+      "train_normalized_MSE": 0.1205033049952212,
+      "validation_normalized_MSE": 0.11657336354255676
+    },
+    {
+      "epoch": 29,
+      "train_normalized_MSE": 0.1203576925096752,
+      "validation_normalized_MSE": 0.11672946065664291
+    },
+    {
+      "epoch": 30,
+      "train_normalized_MSE": 0.11864160006638054,
+      "validation_normalized_MSE": 0.1243157684803009
+    },
+    {
+      "epoch": 31,
+      "train_normalized_MSE": 0.11660179174203666,
+      "validation_normalized_MSE": 0.11431963741779327
+    },
+    {
+      "epoch": 32,
+      "train_normalized_MSE": 0.1329073818842713,
+      "validation_normalized_MSE": 0.1181396096944809
+    },
+    {
+      "epoch": 33,
+      "train_normalized_MSE": 0.1112805993008099,
+      "validation_normalized_MSE": 0.11912122368812561
+    },
+    {
+      "epoch": 34,
+      "train_normalized_MSE": 0.11786250480644994,
+      "validation_normalized_MSE": 0.12223264575004578
+    },
+    {
+      "epoch": 35,
+      "train_normalized_MSE": 0.13642744929027215,
+      "validation_normalized_MSE": 0.119508758187294
+    },
+    {
+      "epoch": 36,
+      "train_normalized_MSE": 0.1065633995927495,
+      "validation_normalized_MSE": 0.12110698968172073
+    },
+    {
+      "epoch": 37,
+      "train_normalized_MSE": 0.11304278698542135,
+      "validation_normalized_MSE": 0.11984984576702118
+    },
+    {
+      "epoch": 38,
+      "train_normalized_MSE": 0.1147203394513336,
+      "validation_normalized_MSE": 0.11657004058361053
+    },
+    {
+      "epoch": 39,
+      "train_normalized_MSE": 0.11187991162212632,
+      "validation_normalized_MSE": 0.12224698066711426
+    }
+  ],
+  "actual_predicted": {
+    "XGBoost_Tuned": [
+      {
+        "year": 2012,
+        "actual": 1.9606778017244315,
+        "prediction": 1.9969921810753484
+      },
+      {
+        "year": 2013,
+        "actual": 2.068000212909818,
+        "prediction": 2.054076143949152
+      },
+      {
+        "year": 2014,
+        "actual": 1.9076988068179273,
+        "prediction": 2.1444509118366586
+      }
+    ],
+    "LSTM": [
+      {
+        "year": 2012,
+        "actual": 1.9606778017244315,
+        "prediction": 1.9198357044915344
+      },
+      {
+        "year": 2013,
+        "actual": 2.068000212909818,
+        "prediction": 2.032954475780848
+      },
+      {
+        "year": 2014,
+        "actual": 1.9076988068179273,
+        "prediction": 2.0956829428839976
+      }
+    ]
+  },
+  "future_means": {
+    "2015": 1.9010831326809075,
+    "2016": 1.8822811753254571,
+    "2017": 1.8266096967908976
+  },
+  "references": [
+    [
+      "Directorate of Economics and Statistics, Department of Agriculture and Farmers Welfare, Government of India, \"Area, Production & Yield - Query Report,\" online statistical portal. Accessed Nov. 18, 2026.",
+      "https://data.desagri.gov.in/website/apy-query-report-web"
+    ],
+    [
+      "R. J. Hyndman and G. Athanasopoulos, Forecasting: Principles and Practice, 3rd ed. Melbourne, Australia: OTexts, 2021.",
+      "https://otexts.com/fpp3/"
+    ],
+    [
+      "G. E. P. Box, G. M. Jenkins, G. C. Reinsel, and G. M. Ljung, Time Series Analysis: Forecasting and Control, 5th ed. Hoboken, NJ, USA: Wiley, 2015.",
+      "https://www.wiley.com/en-us/time-series-analysis-forecasting-and-control-5th-edition-p-9781118674918"
+    ],
+    [
+      "R. J. Hyndman, A. B. Koehler, R. D. Snyder, and S. Grose, \"A state space framework for automatic forecasting using exponential smoothing methods,\" International Journal of Forecasting, vol. 18, no. 3, pp. 439-454, 2002, doi: 10.1016/S0169-2070(01)00110-8.",
+      "https://robjhyndman.com/papers/hksg.pdf"
+    ],
+    [
+      "T. van Klompenburg, A. Kassahun, and C. Catal, \"Crop yield prediction using machine learning: A systematic literature review,\" Computers and Electronics in Agriculture, vol. 177, Art. no. 105709, 2020, doi: 10.1016/j.compag.2020.105709.",
+      "https://doi.org/10.1016/j.compag.2020.105709"
+    ],
+    [
+      "T. Chen and C. Guestrin, \"XGBoost: A scalable tree boosting system,\" in Proc. 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 2016, pp. 785-794, doi: 10.1145/2939672.2939785.",
+      "https://www.kdd.org/kdd2016/papers/files/rfp0697-chenAemb.pdf"
+    ],
+    [
+      "S. Hochreiter and J. Schmidhuber, \"Long short-term memory,\" Neural Computation, vol. 9, no. 8, pp. 1735-1780, 1997, doi: 10.1162/neco.1997.9.8.1735.",
+      "https://www.bioinf.jku.at/publications/older/2604.pdf"
+    ],
+    [
+      "K. Cho, B. van Merrienboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, \"Learning phrase representations using RNN encoder-decoder for statistical machine translation,\" in Proc. EMNLP, 2014, pp. 1724-1734, doi: 10.3115/v1/D14-1179.",
+      "https://aclanthology.org/D14-1179/"
+    ],
+    [
+      "S. J. Taylor and B. Letham, \"Forecasting at scale,\" The American Statistician, vol. 72, no. 1, pp. 37-45, 2018, doi: 10.1080/00031305.2017.1380080.",
+      "https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1380080"
+    ],
+    [
+      "Y. Nie, N. H. Nguyen, P. Sinthong, and J. Kalagnanam, \"A time series is worth 64 words: Long-term forecasting with Transformers,\" in Proc. International Conference on Learning Representations, 2023.",
+      "https://arxiv.org/abs/2211.14730"
+    ]
+  ]
+}

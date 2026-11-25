@@ -1,0 +1,4 @@
+PASS weighted aggregation identity; unique annual keys; complete panel; chronological target windows; future-target feature invariance; forecast alignment; saved-prediction RMSE recalculation; neural parameter updates; neural checkpoint inference replay.
+Prophet is evaluated separately on different aggregate targets. Colab hosted execution not certified by this local run.
+
+FINAL AUDIT: real Jupyter execution 19/19 code cells; 29 PNG outputs; independent recomputation of 36 model/protocol rows; exact numeric replay of all prediction files; raw-source hash unchanged; report and presentation tables matched; 9 chart datasets verified; native PowerPoint opened 16 slides/9 charts/7 tables; 50 Hinglish questions; original working backup unchanged. Hosted Colab and official faculty compliance remain unverified; Prophet failure is explicit.

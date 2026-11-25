@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+message: "Please cite this project using the metadata below."
+title: "Agricultural Crop Yield Time Series Forecasting"
+authors:
+  - family-names: "Yadav"
+    given-names: "Mayank"
+type: software

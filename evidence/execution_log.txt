@@ -1,0 +1,131 @@
+
+NOTEBOOK CELL 3; execution 1
+CPU-only experiment; no paid services. Colab mode: False
+
+NOTEBOOK CELL 5; execution 2
+Dataset: crop_production.csv
+
+NOTEBOOK CELL 7; execution 3
+RAW {'rows': 246091, 'columns': 7, 'states': 33, 'district_name_labels': 646, 'state_district_pairs': 652, 'crops_raw': 124, 'crops_standardized': 124, 'start_year': 1997, 'end_year': 2015, 'missing': {'State_Name': 0, 'District_Name': 0, 'Crop_Year': 0, 'Season': 0, 'Crop': 0, 'Area': 0, 'Production': 3730}, 'exact_duplicates': 0, 'business_duplicate_rows': 0, 'nonpositive_area': 0, 'negative_production': 0, 'season_counts': {'Kharif': 95951, 'Rabi': 66987, 'Whole Year': 57305, 'Summer': 14841, 'Winter': 6058, 'Autumn': 4949}, 'raw_rows_by_year': {1997: 8899, 1998: 11533, 1999: 12515, 2000: 13658, 2001: 13361, 2002: 16671, 2003: 17287, 2004: 14117, 2005: 13799, 2006: 14328, 2007: 14526, 2008: 14550, 2009: 14116, 2010: 14065, 2011: 14071, 2012: 13410, 2013: 13650, 2014: 10973, 2015: 562}, 'units': 'not encoded; production/area ratio reported without asserting verified tonnes/hectare'}
+SELECTED (1112, 10) {'Rice': 319, 'Maize': 278, 'Wheat': 267, 'Rapeseed &Mustard': 248}
+
+NOTEBOOK CELL 9; execution 4
+
+NOTEBOOK CELL 11; execution 5
+STATIONARITY 769
+Diagnostic warnings captured and exported: 4007
+
+NOTEBOOK CELL 13; execution 6
+
+NOTEBOOK CELL 15; execution 7
+
+NOTEBOOK CELL 17; execution 8
+validation_one_step Naive done 0.1
+validation_one_step Mean done 0.11
+validation_one_step MA3 done 0.1
+validation_one_step Drift done 0.11
+validation_one_step AR1_OLS done 0.22
+validation_one_step SES_LS done 2.29
+validation_one_step Holt_LS done 3.97
+validation_one_step DampedHolt_LS done 3.9
+XGBoost trial 0 done
+XGBoost trial 1 done
+XGBoost trial 2 done
+XGBoost trial 3 done
+XGBoost trial 4 done
+XGBoost trial 5 done
+XGBoost trial 6 done
+XGBoost trial 7 done
+XGBoost trial 8 done
+XGBoost trial 9 done
+XGBoost trial 10 done
+XGBoost trial 11 done
+
+NOTEBOOK CELL 19; execution 9
+Neural validation LSTM validation completed
+Neural validation GRU validation completed
+Neural validation PatchTransformerTiny validation completed
+FROZEN OVERALL WINNER XGBoost_Tuned
+
+NOTEBOOK CELL 21; execution 10
+test_one_step Naive done 0.12
+test_one_step Mean done 0.14
+test_one_step MA3 done 0.16
+test_one_step Drift done 0.14
+test_one_step AR1_OLS done 0.31
+test_one_step SES_LS done 2.88
+test_one_step Holt_LS done 5.51
+test_one_step DampedHolt_LS done 6.89
+fixed_origin Naive done 0.05
+fixed_origin Mean done 0.06
+fixed_origin MA3 done 0.06
+fixed_origin Drift done 0.08
+fixed_origin AR1_OLS done 0.1
+fixed_origin SES_LS done 0.92
+fixed_origin Holt_LS done 1.75
+fixed_origin DampedHolt_LS done 2.2
+test 
+                model    n      MAE     RMSE      MAPE  MAPE_n     sMAPE      MASE       MFE  RMSE_improvement_vs_naive_pct
+                LSTM 3336 0.326498 0.545658 23.561181    3335 19.470331  3.502827 -0.037365                       3.941651
+PatchTransformerTiny 3336 0.325342 0.549615 22.665306    3335 18.992212  3.500578 -0.018564                       3.245089
+                 GRU 3336 0.332123 0.551099 25.163281    3335 20.297188  3.606081 -0.059068                       2.983768
+       XGBoost_Tuned 3336 0.336924 0.561743 24.765871    3335 19.705808  3.677039 -0.086381                       1.109914
+               Naive 3336 0.329783 0.568048 20.656878    3335 18.654840  3.452378 -0.006888                       0.000000
+              SES_LS 3336 0.342786 0.574474 21.166036    3335 19.332586  3.500811  0.037434                      -1.131109
+                 MA3 3336 0.339886 0.579556 20.885357    3335 19.289012  3.887991  0.074899                      -2.025811
+               Drift 3336 0.362899 0.616296 22.698866    3335 20.375988  3.641981 -0.060649                      -8.493520
+                Mean 3336 0.407221 0.634924 23.512636    3335 23.577349  4.670550  0.219418                     -11.772888
+       DampedHolt_LS 3336 0.369102 0.659145 22.910926    3335 20.069434  4.400714 -0.057246                     -16.036765
+             Holt_LS 3336 0.400137 0.697438 24.670838    3335 21.504708  4.474134 -0.089428                     -22.777909
+             AR1_OLS 3336 0.774660 5.349867 38.934118    3335 23.834351 31.217520 -0.308901                    -841.797950
+fixed_origin 
+                model    n        MAE         RMSE         MAPE  MAPE_n     sMAPE         MASE       MFE  RMSE_improvement_vs_naive_pct
+                LSTM 3336   0.355550     0.599152    24.597346    3335 20.859465     4.388052  0.000031                   3.223302e+00
+PatchTransformerTiny 3336   0.349721     0.600379    22.797720    3335 19.970882     4.347584  0.024781                   3.025053e+00
+                 GRU 3336   0.374230     0.600513    30.974900    3335 23.385214     4.538773 -0.068495                   3.003537e+00
+               Naive 3336   0.364825     0.619108    22.374096    3335 21.023268     4.618771  0.050431                   0.000000e+00
+       XGBoost_Tuned 3336   0.374807     0.628338    25.814324    3335 21.037627     4.540652 -0.091889                  -1.490819e+00
+              SES_LS 3336   0.384164     0.634288    22.889710    3335 22.139248     4.717691  0.119148                  -2.451910e+00
+                 MA3 3336   0.388431     0.636350    23.062519    3335 22.471014     4.766513  0.163658                  -2.784965e+00
+                Mean 3336   0.431899     0.669703    24.688844    3335 25.290061     5.006737  0.250262                  -8.172233e+00
+       DampedHolt_LS 3336   0.425058     0.739123    25.884070    3335 23.052552     4.734248 -0.022929                  -1.938512e+01
+               Drift 3336   0.447086     0.760127    27.379885    3335 24.312281     4.783294 -0.056363                  -2.277786e+01
+             Holt_LS 3336   0.509628     0.879639    30.799045    3335 26.500138     4.999333 -0.110984                  -4.208168e+01
+             AR1_OLS 3336 346.045357 14099.258120 10965.292563    3335 25.839627 21397.642290 42.925252                  -2.277251e+06
+
+NOTEBOOK CELL 23; execution 11
+
+NOTEBOOK CELL 25; execution 12
+Importing plotly failed. Interactive plots will not work.
+C:\Users\mayan\Documents\Codex\2026-11-18\als\work\extended_deps\tqdm\auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+19:49:35 - cmdstanpy - INFO - Chain [1] start processing
+19:49:36 - cmdstanpy - INFO - Chain [1] done processing
+19:49:36 - cmdstanpy - ERROR - Chain [1] error: code '3236495362' 
+
+NOTEBOOK CELL 27; execution 13
+
+NOTEBOOK CELL 29; execution 14
+C:\Users\mayan\Documents\Codex\2026-11-18\als\work\pydeps\statsmodels\stats\diagnostic.py:997: FutureWarning: acorr_lm currently returns a plain tuple whose length depends on the store argument. In release 0.16 or after July 2027, whichever is later, the default behavior will switch to always returning an LMTestResult NamedTuple. Set result_object=True to switch now, or result_object=False to keep the current behavior and silence this warning.
+  return acorr_lm(
+
+NOTEBOOK CELL 31; execution 15
+FINAL EXTENSION FINISHED 140.96 seconds
+
+NOTEBOOK CELL 33; execution 16
+Additional EDA generated; no forecast or model-selection values changed.
+
+NOTEBOOK CELL 35; execution 17
+Validation selection: XGBoost_Tuned
+Expanding one-step test:
+Fixed-origin three-step test:
+Model execution statuses:
+Future forecast sample:
+
+NOTEBOOK CELL 37; execution 18
+PASS: one-origin refit reproduces saved prediction.
+Series: Andhra Pradesh|ANANTAPUR|Maize Target: 2012 Prediction: 5.531285285949707
+
+NOTEBOOK CELL 39; execution 19
+Completed. Evidence ZIP: crop_yield_final_evidence.zip
+Input SHA-256: 5b2637058ca4aff2ef7c0e0f2f391bca712300d082693b585f489871fd91d520

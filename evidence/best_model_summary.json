@@ -1,0 +1,66 @@
+{
+  "best_by_validation_RMSE": "XGBoost_Tuned",
+  "validation": [
+    {
+      "model": "XGBoost_Tuned",
+      "n": 2224,
+      "MAE": 0.27552667726491636,
+      "RMSE": 0.529400158832265,
+      "MAPE": 17.914180905917075,
+      "MAPE_n": 2224,
+      "sMAPE": 16.457721230262358,
+      "MASE": 2.9853032244920605,
+      "MFE": 0.10234309785389051
+    }
+  ],
+  "test_one_step": [
+    {
+      "model": "XGBoost_Tuned",
+      "n": 3336,
+      "MAE": 0.3369237065129647,
+      "RMSE": 0.5617434640622884,
+      "MAPE": 24.765871069389913,
+      "MAPE_n": 3335,
+      "sMAPE": 19.705807525771938,
+      "MASE": 3.6770389263668233,
+      "MFE": -0.08638080513632718,
+      "RMSE_improvement_vs_naive_pct": 1.10991391279055
+    }
+  ],
+  "fixed_origin_three_step": [
+    {
+      "model": "XGBoost_Tuned",
+      "n": 3336,
+      "MAE": 0.3748068059641779,
+      "RMSE": 0.6283375698152623,
+      "MAPE": 25.81432429363452,
+      "MAPE_n": 3335,
+      "sMAPE": 21.037626901423934,
+      "MASE": 4.5406517116229415,
+      "MFE": -0.09188870692072604,
+      "RMSE_improvement_vs_naive_pct": -1.4908186162008619
+    }
+  ],
+  "test_lowest_RMSE": "LSTM",
+  "test_lowest_MAE": "PatchTransformerTiny",
+  "test_lowest_MAPE": "Naive",
+  "evaluated_models": [
+    "LSTM",
+    "PatchTransformerTiny",
+    "GRU",
+    "XGBoost_Tuned",
+    "Naive",
+    "SES_LS",
+    "MA3",
+    "Drift",
+    "Mean",
+    "DampedHolt_LS",
+    "Holt_LS",
+    "AR1_OLS"
+  ],
+  "failed_fits": 0,
+  "optimizer_non_success": 0,
+  "negative_test_predictions": 29,
+  "negative_future_predictions": 0,
+  "runtime_seconds": 140.93824740000127
+}

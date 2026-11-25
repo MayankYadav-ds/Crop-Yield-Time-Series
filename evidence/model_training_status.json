@@ -1,0 +1,71 @@
+{
+  "LSTM": {
+    "status": "trained and evaluated",
+    "selected_epochs": 49,
+    "parameter_count": 1233,
+    "lookback": 3,
+    "normalization": "fit separately on each training origin",
+    "inner_train_end": 2008,
+    "inner_stop_year": 2009,
+    "max_epochs": 60,
+    "patience": 8,
+    "dropout": 0.1,
+    "learning_rate": 0.003,
+    "batch_size": 256
+  },
+  "GRU": {
+    "status": "trained and evaluated",
+    "selected_epochs": 52,
+    "parameter_count": 929,
+    "lookback": 3,
+    "normalization": "fit separately on each training origin",
+    "inner_train_end": 2008,
+    "inner_stop_year": 2009,
+    "max_epochs": 60,
+    "patience": 8,
+    "dropout": 0.1,
+    "learning_rate": 0.003,
+    "batch_size": 256
+  },
+  "PatchTransformerTiny": {
+    "status": "trained and evaluated",
+    "selected_epochs": 31,
+    "parameter_count": 657,
+    "lookback": 3,
+    "normalization": "fit separately on each training origin",
+    "inner_train_end": 2008,
+    "inner_stop_year": 2009,
+    "max_epochs": 60,
+    "patience": 8,
+    "dropout": 0.1,
+    "learning_rate": 0.003,
+    "batch_size": 256
+  },
+  "Prophet": {
+    "status": "excluded after runtime failure",
+    "error": "Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\iczu7f9u.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\9wafuodo.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\prophet_model7zz7t4r3\\prophet_model-20261118194935.csv method=optimize algorithm=newton iter=10000' failed: ",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_988\\4257671604.py\", line 18, in <module>\n    pp=prophet_predictions(prior,[2010,2011],'validation_one_step');rmse=np.sqrt(np.mean((pp.actual-pp.prediction)**2));pv.append({'changepoint_prior_scale':prior,'validation_RMSE':rmse});prior_predictions[prior]=pp\n       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\AppData\\Local\\Temp\\ipykernel_988\\4257671604.py\", line 13, in prophet_predictions\n    m.fit(frame,seed=42);yrs=years if mode=='fixed_origin' else [origin+1];pr=m.predict(pd.DataFrame({'ds':pd.to_datetime([str(y)+'-01-01' for y in yrs])})).yhat.values\n    ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\forecaster.py\", line 1442, in fit\n    self.params = stan_backend.fit(stan_init, dat, **kwargs)\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 169, in fit\n    raise e\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\models.py\", line 165, in fit\n    self.stan_fit = self.model.optimize(**args)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\utils\\deprecation.py\", line 37, in wrapper\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\cmdstanpy\\model.py\", line 660, in optimize\n    raise RuntimeError(msg)\nRuntimeError: Error during optimization! Command 'C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\work\\extended_deps\\prophet\\stan_model\\prophet_model.bin random seed=42 data file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\iczu7f9u.json init=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\9wafuodo.json output file=C:\\Users\\mayan\\AppData\\Local\\Temp\\tmp_eljkald\\prophet_model7zz7t4r3\\prophet_model-20261118194935.csv method=optimize algorithm=newton iter=10000' failed: \n"
+  },
+  "XGBoost_Tuned": {
+    "status": "trained and evaluated",
+    "trial_count": 12,
+    "parameters": {
+      "n_estimators": 250,
+      "max_depth": 3,
+      "learning_rate": 0.03,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10
+    }
+  },
+  "ARIMA": {
+    "status": "excluded: environment block",
+    "error": "Windows application-control policy blocks statsmodels state-space _inversions extension; no policy changes attempted"
+  },
+  "SARIMA_seasonal_HW": {
+    "status": "excluded: no justified annual periodicity"
+  },
+  "ARCH_GARCH_VAR": {
+    "status": "not fit; short annual histories and inadequate validated multivariate/volatility design"
+  }
+}

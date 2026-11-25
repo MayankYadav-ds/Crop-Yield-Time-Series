@@ -1,0 +1,47 @@
+{
+  "crops": [
+    "Rice",
+    "Maize",
+    "Wheat",
+    "Rapeseed &Mustard"
+  ],
+  "n_series": 1112,
+  "n_panel_observations": 11120,
+  "excluded_incomplete_series": 1283,
+  "train_final": [
+    2005,
+    2011
+  ],
+  "validation_targets": [
+    2010,
+    2011
+  ],
+  "validation_origins": [
+    2009,
+    2010
+  ],
+  "one_step_test_targets": [
+    2012,
+    2013,
+    2014
+  ],
+  "fixed_origin_test": {
+    "origin": 2011,
+    "targets": [
+      2012,
+      2013,
+      2014
+    ]
+  },
+  "raw_2015_excluded": "562 records; incomplete coverage relative to other years",
+  "modeled_cutoff": 2014,
+  "future_targets": [
+    2015,
+    2016,
+    2017
+  ],
+  "survivor_bias": "eligibility requires complete test-era observations",
+  "seed": 42,
+  "series_selection": "four named crops matching earlier experiment scope",
+  "units": "production units / area units; physical labels absent"
+}

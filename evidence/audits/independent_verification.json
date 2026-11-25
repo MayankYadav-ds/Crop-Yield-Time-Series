@@ -1,0 +1,492 @@
+{
+  "notebook": {
+    "execution_method": "real Jupyter kernel via nbclient",
+    "notebook_cells": 39,
+    "code_cells_executed": 19,
+    "error_outputs": 0,
+    "elapsed_seconds": 152.2038845000061,
+    "events": [
+      {
+        "cell_index": 3,
+        "execution_count": 1,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 5,
+        "execution_count": 2,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 7,
+        "execution_count": 3,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 9,
+        "execution_count": 4,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 11,
+        "execution_count": 5,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 13,
+        "execution_count": 6,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 15,
+        "execution_count": 7,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 17,
+        "execution_count": 8,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 19,
+        "execution_count": 9,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 21,
+        "execution_count": 10,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 23,
+        "execution_count": 11,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 25,
+        "execution_count": 12,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 27,
+        "execution_count": 13,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 29,
+        "execution_count": 14,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 31,
+        "execution_count": 15,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 33,
+        "execution_count": 16,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 35,
+        "execution_count": 17,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 37,
+        "execution_count": 18,
+        "error_outputs": 0
+      },
+      {
+        "cell_index": 39,
+        "execution_count": 19,
+        "error_outputs": 0
+      }
+    ],
+    "embedded_png_outputs": 29,
+    "colab_hosted_execution": "not performed: browser signed out; no account credentials provided",
+    "model_failures_are_explicitly_logged": true
+  },
+  "independent_kernel_replay": {
+    "validation_predictions.csv": {
+      "rows": 26688,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    "test_predictions.csv": {
+      "rows": 40032,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    "fixed_origin_predictions.csv": {
+      "rows": 40032,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    "future_forecasts.csv": {
+      "rows": 3336,
+      "maximum_absolute_numeric_difference": 0.0
+    }
+  },
+  "metric_recalculations": [
+    {
+      "protocol": "validation",
+      "model": "AR1_OLS",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "DampedHolt_LS",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "Drift",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "GRU",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "Holt_LS",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "LSTM",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "MA3",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "Mean",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "Naive",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "PatchTransformerTiny",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "SES_LS",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "validation",
+      "model": "XGBoost_Tuned",
+      "all_metrics_verified": true,
+      "n": 2224
+    },
+    {
+      "protocol": "test",
+      "model": "AR1_OLS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "DampedHolt_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "Drift",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "GRU",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "Holt_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "LSTM",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "MA3",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "Mean",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "Naive",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "PatchTransformerTiny",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "SES_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "test",
+      "model": "XGBoost_Tuned",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "AR1_OLS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "DampedHolt_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "Drift",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "GRU",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "Holt_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "LSTM",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "MA3",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "Mean",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "Naive",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "PatchTransformerTiny",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "SES_LS",
+      "all_metrics_verified": true,
+      "n": 3336
+    },
+    {
+      "protocol": "fixed_origin",
+      "model": "XGBoost_Tuned",
+      "all_metrics_verified": true,
+      "n": 3336
+    }
+  ],
+  "data": {
+    "original_input_sha256_unchanged": true,
+    "raw_rows": 246091,
+    "annual_groups": 210131,
+    "modeled_series": 1112,
+    "physical_units_verified": false,
+    "source_license_verified": false
+  },
+  "training": {
+    "three_neural_models_trained": true,
+    "training_target_year_checks": true,
+    "inner_stopping": {
+      "training_end": 2008,
+      "stop_year": 2009,
+      "patience": 8,
+      "max_epochs": 60
+    },
+    "checkpoint_replay": "passed in actual notebook for each neural test origin",
+    "xgboost_trials": 12,
+    "selection_frozen_before_current_test_computation": true,
+    "test_was_previously_examined": true,
+    "Prophet_status": "excluded after runtime failure",
+    "ARIMA_status": "excluded: environment block"
+  },
+  "colab": {
+    "upload_adapter_integration_tests": [
+      "valid CSV upload payload accepted with matching digest",
+      "zero CSV rejected",
+      "multiple CSVs rejected",
+      "wrong schema rejected"
+    ],
+    "installation_command_construction_tested": true,
+    "cpu_index_verified_in_branch": true,
+    "real_dependency_installation": "passed locally in isolated workspace package directory",
+    "hosted_colab_execution": "unverified: Google sign-in unavailable",
+    "linux_dependency_installation": "not executed; no hosted account access",
+    "scope_of_mock_tests": "SDK payload and installer command behavior only; not a real hosted upload or install"
+  },
+  "document_consistency": {
+    "report_metric_table_verified": true,
+    "presentation_metric_table_verified": true,
+    "native_charts": [
+      {
+        "chart": "ppt/slides/charts/chart1.xml",
+        "title": "Annual reporting",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart2.xml",
+        "title": "Matched crop ratios",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart3.xml",
+        "title": "Validation RMSE by trial",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart4.xml",
+        "title": "Inner stopping year 2009",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart5.xml",
+        "title": "Outer validation RMSE",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart6.xml",
+        "title": "One-step test RMSE",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart7.xml",
+        "title": "Cohort mean: one-step",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart8.xml",
+        "title": "Fixed-origin MAE",
+        "data_verified_to_published_precision": true
+      },
+      {
+        "chart": "ppt/slides/charts/chart9.xml",
+        "title": "2015\u20132017 point forecasts",
+        "data_verified_to_published_precision": true
+      }
+    ],
+    "chart_numeric_storage": "12 significant digits for Excel portability; full-precision CSVs retained",
+    "report_pages": 7,
+    "abstract_words": 167,
+    "references": 10,
+    "slides": 16,
+    "report_figures_generated_from_recorded_data": true,
+    "figure_generation_code_retained": true,
+    "presentation_pdf_pages": 16,
+    "native_powerpoint": {
+      "opened_in_powerpoint": true,
+      "slides": 16,
+      "native_charts": 9,
+      "native_tables": 7
+    },
+    "report_pages_visually_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "native_slides_visually_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "backup": {
+    "archive": "C:\\Users\\mayan\\Documents\\Codex\\2026-11-18\\als\\outputs\\WORKING_BACKUP_20261118_190418.zip",
+    "zip_integrity": "passed",
+    "original_files_unchanged": true,
+    "verified_files": [
+      "Crop_Yield_Time_Series_Report_Matched_EXECUTED.ipynb",
+      "Final_Time_Series_Research_Report.docx",
+      "Final_Time_Series_Research_Report.pdf",
+      "NOTEBOOK_VERIFICATION.json",
+      "NOTEBOOK_VERIFICATION.md",
+      "REPORT_ACCURACY_AUDIT.md",
+      "REPORT_EVIDENCE.zip",
+      "RUBRIC_COMPLIANCE.md"
+    ]
+  },
+  "viva_questions": 50,
+  "demonstration_minutes": 11
+}

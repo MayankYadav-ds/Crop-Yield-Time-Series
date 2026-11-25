@@ -1,0 +1,503 @@
+1 
+BENNETT UNIVERSITY 
+CSET 369 Time Series Analysis 
+ 
+ 
+ 
+ 
+Agricultural Crop Yield Forecasting Using Classical 
+and Advanced Time Series Models  
+Final evaluation edition 
+Course Coordinator  Anurag Choubey 
+ 
+ 
+ 
+Mayank Yadav — S24CSEU1494 
+ 
+ 
+18 November 2026 
+2 
+Abstract 
+Agricultural forecasting requires consistent annual targets, 
+chronological evaluation and transparent treatment of 
+incomplete reporting. This study analyzes 246,091 crop -
+production records covering 1997 –2015 and constructs 
+annual production -to-area ratios after conservative quality 
+checks. A matched 2005 –2014 panel contains 1,112 
+district–crop histories for Rice, Maize, Wheat and 
+Rapeseed &Mustard. Eight local baseline or classical 
+estimators are compared with a globally tuned XGBoost 
+model, LSTM, GRU and a  lightweight patch -based 
+Transformer. Twelve XGBoost candidates use expanding 
+validation targets in 2010 –2011; neural epoch selection 
+uses an earlier 2009 stopping year. The validation -selected 
+XGBoost achieves one -step test MAE 0.3369, RMSE 
+0.5617 and MAPE 24.77% over 2012–2014. LSTM has the 
+lowest retrospective test RMSE, 0.5457, while Naive has 
+the lowest MAPE. Fixed -origin three -step results are 
+reported separately. Prophet was implemented for longer 
+crop-level aggregates but its native optimizer failed  locally, 
+so no Prophet accuracy is asserted. Source units, district 
+boundaries and cohort selection limit interpretation. This 
+retrospective extension provides reproducible evidence for 
+model comparison rather than guaranteed operational 
+accuracy or an independent prospective validation. 
+Keywords: agricultural forecasting, annual panel, XGBoost, 
+LSTM, GRU, patch Transformer, chronological validation. 
+I. INTRODUCTION 
+Agricultural planners need forecasts whose target definition 
+and information set remain clear. A district -level yield 
+forecast can support investigation and production planning, 
+but reported accuracy is misleading when aggregation 
+combines overlapping seasonal records or when future 
+values enter model features. Short annual histories also 
+make persistence a demanding benchmark for more 
+complex methods. 
+The objective is to compare classical and advanced 
+methods on common targets while preserving an auditable 
+progression from raw records to predictions. The 
+experiment uses crop_production.csv, with seven fields and 
+246,091 observations. It extends the existing ten -year study 
+with a larger chronological XGBoost search and genuinely 
+trained small neural models. The contribution is a 
+reproducible application and evidence audit; no novel 
+architecture or universal forecasting superiority is claimed. 
+The extension keeps model selection separate from 
+retrospective test ranking. Its test years were already 
+examined in an earlier project version. Therefore, the 
+present results are retrospective benchmark evidence, not 
+an independently blinded or prospective holdout. The 
+report states this limitation and does not substitute a test 
+winner for the validation-selected method. 
+II. LITERATURE REVIEW 
+Statistical forecasting. Hyndman and Athanasopoulos [2] 
+explain baseline methods and out -of-sample evaluation, 
+while Box et al. [3] establish autoregressive modeling. 
+Their relevance is the need to define a forecast origin and 
+compare complex models against simple alternatives. This 
+experiment includes persistence, historical mean, moving 
+average, drift and an explicitly labeled OLS AR(1). 
+Exponential smoothing. Hyndman et al. [4] provide a state -
+space framework for smoothing. This study uses custom 
+conditional least -squares SES, Holt and damped Holt 
+recursions. They share the underlying level/trend ideas but 
+are not claimed to reproduce full likelihood -based ETS 
+estimation or a specific library implementation. 
+Agricultural machine learning. Van Klompenburg et al. [5] 
+review crop -yield prediction and frequently used 
+environmental inputs. Temperature, rainfall, soil and 
+management variables are absent here. The present 
+comparison concerns historical predictability; its observed 
+correlations and yield -ratio declines cannot establish 
+agricultural causes. 
+Boosting. Chen and Guestrin [6] describe regularized tree 
+boosting in XGBoost. A global regressor shares lag –target 
+relationships across districts and crops. Chronological 
+candidate evaluation is required because nonlinear capacity 
+does not guarantee better generalization on annual histories. 
+Sequence models. LSTM [7] and the recurrent encoder –
+decoder of Cho et al. [8] motivate gated recurrent models. 
+Nie et al. [10] motivate patching and channel -independent 
+temporal attention. The current patch -based model is a 
+small inspired implementation, not an exact PatchTST 
+reproduction. Prophet [9] motivates a separate trend model 
+with unjustified seasonal components disabled; its local 
+optimizer failure is an execution finding, not evidence that 
+the method is intrinsically unsuitable. 
+III. DATASET AND PREPROCESSING 
+A. Provenance and verified characteristics 
+The empirical input is the supplied crop_production.csv. Its 
+digest is recorded in the evidence package, and the original 
+input is preserved. The official APY query portal [1] 
+provides contextual agricultural statistics. Exact record -
+level lineage, collection methodology and redistribution 
+license for this local file remain unverified; the report does 
+not assert direct download from that portal. The earlier 16 -
+column dataset is not combined with this experiment. 
+TABLE I. INPUT AND DATA QUALITY 
+Property Verified observation 
+Raw rows / fields 246,091 / 7 
+Crop-year labels 1997–2015 
+State labels 33 
+District names / state–district 
+pairs 
+646 / 652 
+Crop names 124 
+Missing production 3,730 
+Exact / business-key duplicates 0 / 0 
+Annual processed groups 210,131 
+The columns are State_Name, District_Name, Crop_Year, 
+Season, Crop, Area and Production. Unit columns and 
+stable geographic identifiers are absent. Accordingly, the 
+target is called a production/area ratio; tonnes/hectare is not 
+asserted as independently verified. State plus district labels 
+3 
+identify series but do not guarantee unchanged geographic 
+boundaries. 
+B. Conservative annual aggregation 
+Categorical whitespace is standardized. Missing production 
+is not imputed. Nonfinite measures, nonpositive area and 
+negative production invalidate a component. An annual 
+state–district–crop group is excluded when any selected 
+component is invalid, a seasonal business key is duplicated, 
+or Whole Year overlaps another season. The original input 
+has no Total category. No outliers are automatically 
+removed. 
+The accepted annual target is: 
+Y(G) = Σ(r∈G) Production(r) / Σ(r∈G) Area(r).       (1) 
+Equation (1) is an area -weighted aggregation, not an 
+average of individual ratios. Accepted annual groups 
+account for 241,302 raw rows; invalid or missing -
+component groups account for 3,997 rows; overlapping 
+Whole Year groups account for 792 rows. These decisions 
+sum to the raw 246,091 records. Nonpositive -area and 
+negative-production counts are both zero. Recorded -versus-
+calculated yield discrepancy testing is inapplicable because 
+the file has no recorded yield column. 
+C. Temporal coverage and modeling cohort 
+ 
+Fig. 1. Raw reporting volume by crop year. The final 2015 label contains 
+only 562 records; the modeled cutoff is 2014. 
+The four modeled crops are Rice, Maize, Wheat and 
+Rapeseed &Mustard. Their complete 2005 –2014 cohort 
+contains 1,112 histories across 20 state labels and 11,120 
+annual targets: 319 Rice, 278 Maize, 267 Wheat and 248 
+Rapeseed &Mustard histories. The complete -case rule 
+excludes 1,283 incomplete or unavailable histories within 
+this window. This retrospective requirement uses test -era 
+availability and introduces survivor selection. It is not 
+presented as prospective sample construction. 
+Annual district –crop, state –crop and national -by-crop 
+exports preserve commodity separation. Combining 
+heterogeneous production measures across all crops would 
+need unit verification. Reporting counts quantify observed 
+volume, not completeness against a known expected 
+universe. Internal missing -year counts and all group 
+decisions are exported. 
+IV. RESEARCH METHODOLOGY 
+ 
+Fig. 2. Analysis workflow. Validation choices freeze before the current 
+extension’s test evaluation; the test period was previously examined in the 
+archived study. 
+A. Time series EDA and stationarity 
+ 
+Fig. 3. Area -weighted production/area ratios in the matched crop cohort. 
+Changing area weights can influence aggregate trends. 
+Rice and Maize weighted ratios increase by 26.23% and 
+37.11% from 2005 to 2014. Wheat and Rapeseed 
+&Mustard change by −11.21% and −5.08%, respectively. 
+Wheat declines 29.60% from 2013 to 2014. These are 
+observed numerical ratios; they do not identify climate, 
+disease or fertilizer effects. Exports include area/production 
+trends, missingness heatmaps, state comparisons, 
+distributions, IQR flags, descriptive correlations, rolling 
+statistics and year -over-year changes. A centered rolling 
+smooth provides a desc riptive trend/residual view, without 
+imposing annual seasonality. 
+ADF and KPSS use the 769 selected identities with 
+complete 1997–2011 histories, before final test years. ADF 
+rejects the unit -root null at 5% for 41.6% of levels and 
+95.8% of differences; KPSS rejects its level -stationarity 
+null for 34.6% and 20.0%. ADF uses a constant and AIC 
+selection among at most one lag; KPSS uses a constant and 
+automatic lag selection. ACF/PACF plots are representative 
+pre-test diagnostics, not pooled cross -district 
+autocorrelations. 
+The tests are descriptive and not adjusted for multiple 
+comparisons. Limited sample length reduces power, and 
+tabulated KPSS p -values may be bounds rather than exact 
+values. Diagnostic warnings are exported. Stationarity 
+
+4 
+evidence does not establish that differenced forecasts will 
+win out of sample. 
+B. Baselines and classical estimators 
+Naive repeats the latest observation; Mean averages the 
+history; MA3 averages its latest three values; Drift 
+extrapolates the average first -to-last change. AR1_OLS 
+estimates an intercept and one lag by unconstrained least 
+squares. Its multi-step forecast recursively applies the fitted 
+coefficients, which can be unstable on short or nearly 
+constant histories. 
+SES_LS updates level as ℓ(t)=αy(t)+(1−α)ℓ(t−1). Holt_LS 
+adds trend; DampedHolt_LS damps it by φ. Conditional 
+one-step SSE is minimized with L -BFGS-B. Initial level is 
+the first observation; initial trend is the first difference, 
+except SES uses zero. α and β lie in [0.01,0.99] and 
+damping in [0.8,0.98]. Fixed -origin forecasts use one fitted 
+state, without refitting to synthetic predictions. The LS 
+labels distinguish these models from full ETS. Statsmodels 
+ARIMA imports remain blocked by local application -
+control policy; no ARIMA accuracy is reported. 
+C. Expanded XGBoost tuning 
+A global XGBoost regressor uses yield lags 1 –3, their 
+trailing mean, their population standard deviation and year 
+minus 2005. Current production, current area and future 
+targets are excluded. No geographic or crop encoding is 
+added, preserving the existing feature definition. Twelve 
+candidates comprise the two earlier settings and ten seeded 
+combinations of estimators, depth, learning rate, 
+row/column sampling and regularization. Selection uses 
+pooled validation RMSE only. 
+ 
+Fig. 4. Actual expanding -validation RMSE across twelve XGBoost 
+candidates. Expanding the search did not produce a better validation 
+setting than the earlier selected candidate. 
+The winning candidate remains trial 1: 250 estimators, 
+depth 3, learning rate 0.03, subsample 0.8, column 
+sampling 0.9 and L2 penalty 10. The additional candidates 
+vary estimator count among 100/200/350, depth 2/3/4, 
+learning rate 0.03/0.05/0.08, row and column sampling, L1 
+penalty and minimum child weight. Every candidate 
+configuration and score is exported. No extra improvement 
+is fabricated merely because the search budget increased. 
+D. Small recurrent and patch-based models 
+The global LSTM and GRU use one recurrent layer with 16 
+hidden units, a final -state linear head and dropout 0.1. 
+PatchTransformerTiny uses a three -year input, two 
+overlapping length-two patches, an eight-dimensional patch 
+embedding, learned positional information, two attention 
+heads, one pre -normalized encoder layer, a 16 -unit feed -
+forward block, dropout 0.1 and a flattened linear 
+forecasting head. It is a lightweight patch -based model 
+inspired by [10], not an exact PatchTST reproduction. 
+TABLE II. ACTUAL NEURAL CONFIGURATIONS 
+Neural model Parameters Selected epochs 
+LSTM 1233 49 
+GRU 929 52 
+Patch TF 657 31 
+All neural fits use CPU, float32 tensors, Adam learning rate 
+0.003, weight decay 10⁻⁴, batch size 256 and gradient -norm 
+clipping at 1. Training -row shuffling occurs only inside the 
+chronological training split. A scalar mean and standard 
+deviation are fitted separately at each training origin and 
+applied to both inputs and targets. No test observations 
+enter normalization. 
+An inner fit through 2008 monitors 2009 MSE, with 
+patience 8 and at most 60 epochs. The selected epoch 
+counts are then frozen. Outer validation refits through 2009 
+and 2010 predict 2010 and 2011, respectively. Test refits 
+use those same epoch counts. Parameter updates are 
+checked, checkpoints include normalization values, and 
+reloaded inference is verified against the original 
+predictions. 
+ 
+Fig. 5. Genuine neural training and inner -stopping losses. The validation 
+curves concern 2009; they are not test losses or outer 2010–2011 selection 
+scores. 
+
+5 
+E. Chronological evaluation and metrics 
+The common modeled window is 2005 –2014. Outer 
+validation targets are 2010 and 2011 with origins 2009 and 
+2010. Selection freezes on validation RMSE. Final pre -test 
+fitting uses 2005–2011. An expanding one-step test refits at 
+origins 2011, 2012 and 2013; a separate fixed -origin test 
+uses only information through 2011 for all three 2012–2014 
+horizons. Each model has 2,224 validation targets and 
+3,336 targets per test protocol. Supervised global training 
+starts in 2008 because three historical values are required. 
+For N aligned targets, e(i)=y(i)−ŷ(i): 
+MAE = N⁻¹ Σ |e(i)|.                                               (2) 
+RMSE = sqrt[N⁻¹ Σ e(i)²].                                     (3) 
+MAPE = 100 |S|⁻¹ Σ(i∈S) |e(i)/y(i)|.                   (4) 
+S excludes |y|≤10⁻⁸; one of the 3,336 test targets is excluded 
+from MAPE. MAE and RMSE retain all targets. Scores 
+weight district/year observations equally. Additional 
+exports include sMAPE, MASE and signed mean error. 
+MASE uses training first differences from 2005 –2009 for 
+validation and 2005–2011 for testing; undefined zero scales 
+are omitted. Models enter the leaderboard only when all 
+common targets have finite predictions. Seeds, versions, 
+timings, fit statuses and checkpoints are recorded. 
+V. RESULTS AND DISCUSSION 
+A. Validation selection and retrospective ranking 
+TABLE III. EXPANDING ONE-STEP TEST, 2012–2014 
+Model Type MAE RMSE MAPE % 
+LSTM DL 0.3265 0.5457 23.56 
+Patch TF DL 0.3253 0.5496 22.67 
+GRU DL 0.3321 0.5511 25.16 
+XGB tuned ML 0.3369 0.5617 24.77 
+Naive Base 0.3298 0.5680 20.66 
+SES_LS Stat 0.3428 0.5745 21.17 
+MA3 Base 0.3399 0.5796 20.89 
+Drift Base 0.3629 0.6163 22.70 
+Mean Base 0.4072 0.6349 23.51 
+DampedHolt_LS Stat 0.3691 0.6591 22.91 
+Holt_LS Stat 0.4001 0.6974 24.67 
+AR1_OLS Stat 0.7747 5.3499 38.93 
+Errors use the numerical production/area scale; physical units are 
+unverified. DL denotes neural models, ML boosting, Stat local estimators 
+and Base baselines. Patch TF denotes PatchTransformerTiny. 
+XGBoost_Tuned remains selected by validation RMSE 
+(0.5294), ahead of LSTM (0.5330). Its one -step test RMSE 
+is 0.5617, a 1.11% reduction relative to Naive’s 0.5680. 
+This is a metric -specific empirical difference, not a 
+statistically established or operational benefit. 
+LSTM has the lowest retrospective one -step test RMSE 
+(0.5457); PatchTransformerTiny has the lowest MAE 
+(0.3253); Naive has the lowest MAPE (20.66%). These 
+rankings do not replace the validation selection. The full 
+search and neural comparisons show that one method does 
+not dominate every metric. 
+ 
+Fig. 6. One -step RMSE for the global models and Naive. Table III 
+contains every evaluated model, including unstable AR1_OLS. 
+AR1_OLS has one -step RMSE 5.3499 and fixed -origin 
+RMSE 14,099.2581. Unconstrained coefficients on short 
+histories can create explosive forecasts. Across all one -step 
+models, 29 predictions are negative and remain in the 
+metrics; they are not clipped or hidden. There are no 
+negative selected -model future forecasts. Classical caught -
+fit exception and optimizer non -success counts are zero; 
+this does not imply that every requested library fit 
+succeeded. 
+B. Forecast horizon and model reliability 
+TABLE IV. SELECTED MODEL, LSTM AND NAIVE FIXED-
+ORIGIN TEST 
+Model MAE RMSE MAPE % 
+XGB tuned 0.3748 0.6283 25.81 
+LSTM 0.3556 0.5992 24.60 
+Naive 0.3648 0.6191 22.37 
+For the selected XGBoost, fixed -origin RMSE 0.6283 is 
+worse than Naive’s 0.6191. LSTM’s retrospective fixed -
+origin RMSE is 0.5992. The one -step protocol receives 
+newly observed years at subsequent origins; the fixed -
+origin protocol does not. Accuracy cannot be transferred 
+between these horizons without a matched backtest. 
+ 
+Fig. 7. Actual fixed-origin MAE by horizon. Curves use the same matched 
+district/crop targets; no later observations enter the fixed-origin model. 
+C. Execution, applicability and future forecasts 
+The expanded local run took 140.9 seconds. Logged fit and 
+inference times and neural parameter counts are exported 
+separately; baseline loop times include evaluation 
+overhead. The random seed is 42 and neural computation 
+uses two CPU threads. The work uses free local tools and 
+no paid services. 
+
+6 
+Prophet was implemented on four crop -level annual 
+aggregates using 769 longer complete histories over 1997 –
+2014. Daily, weekly and yearly seasonality were disabled, 
+two changepoints were allowed and three prior scales were 
+specified for chronological tuning. Its first native 
+optimization failed locally. Consequently, no successful 
+Prophet fit, accuracy, tuning winner or prediction interval is 
+asserted, and the different aggregate target population is 
+never mixed into the district leaderboard. Failure logs a nd 
+runnable code are retained. 
+Seasonal ARIMA and seasonal Holt –Winters are excluded 
+because no repeating annual -period structure is established. 
+ARCH/Ljung–Box diagnostics on one longer history use 
+only 14 pre -test residuals and remain exploratory. GARCH 
+and VAR are outside the validated short -history, univariate 
+design; the report does not claim that these methods are 
+impossible or that the whole panel lacks ARCH effects. 
+ 
+Fig. 8. Selected -model cohort mean after refitting through 2014. Forecast 
+years 2015–2017 are model outputs; 2015 is partially present in the raw 
+file. 
+The validation -selected XGBoost is refitted through the 
+modeled cutoff and recursively forecasts each selected 
+series. CSV exports include every horizon. The plotted 
+mean is unweighted across series, not a national 
+agricultural yield. Calibrated prediction intervals and 
+interval coverage are unavailable; point forecasts must not 
+be presented as verified future observations. 
+VI. LIMITATIONS AND CHALLENGES 
+The individual histories are short and the validation/test 
+periods contain few independent years. Shared shocks 
+reduce temporal replication despite many districts. 
+Complete-history selection excludes changing or 
+incomplete regions and depends on test -era availability. 
+The test years were examined previously, so the extension 
+is retrospective and cannot support independent prospective 
+generalization claims. 
+Units, exact source lineage/license and stable district 
+boundaries remain unresolved. Production missingness and 
+seasonal overlap exclusions may be nonrandom. Aggregate 
+ratios can change with area weights and reporting coverage. 
+The study concerns four crops and cannot establish 
+performance for all 124 crop labels. No causal agricultural 
+explanation follows without environmental and 
+management variables. 
+The neural architectures are deliberately small and their 
+three-year context limits long -range dependence learning. 
+They are not extensively tuned. Early stopping uses a single 
+inner year; expanded XGBoost tuning still has a bounded 
+12-candidate budget. No significance test establishes that 
+the small score gaps persist elsewhere. Prophet and 
+ARIMA execution limitations are explicit, and probabilistic 
+calibration remains future work. 
+The final notebook executes in a real local Jupyter kernel. 
+The Colab browser is signed out, so hosted execution 
+cannot be certified. Dependency installation and upload 
+adapter behavior are tested locally and the code uses CPU. 
+Official faculty milestone PDFs were unavailable; exact 
+institutional compliance and individual contribution 
+evidence therefore remain unverified. 
+VII. CONCLUSION AND FUTURE WORK 
+The study completed raw -data auditing, annual 
+aggregation, time series EDA, pre -test diagnostics, 12 -
+candidate XGBoost tuning and genuine LSTM, GRU and 
+patch-based Transformer training on a common 1,112 -
+series cohort. Validation selects XGBoost_Tuned; its one -
+step test MAE is 0.3369, RMSE 0.5617 and MAPE 
+24.77%. LSTM has the lowest retrospective RMSE, while 
+metric and horizon rankings differ. These distinctions are 
+retained rather than selecting a winner from the test set. 
+For farmers, insurers and planners, the outputs can serve as 
+investigated baselines after domain validation, not 
+guaranteed recommendations. Future work should verify 
+provenance and units, obtain stable geographic crosswalks, 
+add weather/soil/satellite variables, evaluate genuinely new 
+years, and calibrate multi -horizon uncertainty. More 
+observations and prospective evaluation would support 
+stronger claims than increasing model complexity alone. 
+REFERENCES 
+[1] Directorate of Economics and Statistics, Department of Agriculture 
+and Farmers Welfare, Government of India, "Area, Production & Yield - 
+Query Report," online statistical portal. Accessed Nov. 18, 2026. 
+https://data.desagri.gov.in/website/apy-query-report-web 
+[2] R. J. Hyndman and G. Athanasopoulos, Forecasting: Principles and 
+Practice, 3rd ed. Melbourne, Australia: OTexts, 2021. 
+https://otexts.com/fpp3/ 
+[3] G. E. P. Box, G. M. Jenkins, G. C. Reinsel, and G. M. Ljung, Time 
+Series Analysis: Forecasting and Control, 5th ed. Hoboken, NJ, USA: 
+Wiley, 2015. https://www.wiley.com/en -us/time-series-analysis-
+forecasting-and-control-5th-edition-p-9781118674918 
+[4] R. J. Hyndman, A. B. Koehler, R. D. Snyder, and S. Grose, "A state 
+space framework for automatic forecasting using exponential smoothing 
+methods," International Journal of Forecasting, vol. 18, no. 3, pp. 439-454, 
+2002, doi: 10.1016/S0169 -2070(01)00110-8. 
+https://robjhyndman.com/papers/hksg.pdf 
+[5] T. van Klompenburg, A. Kassahun, and C. Catal, "Crop yield 
+prediction using machine learning: A systematic literature review," 
+Computers and Electronics in Agriculture, vol. 177, Art. no. 105709, 
+2020, doi: 10.1016/j.compag.2020.105709. 
+https://doi.org/10.1016/j.compag.2020.105709 
+[6] T. Chen and C. Guestrin, "XGBoost: A scalable tree boosting system," 
+in Proc. 22nd ACM SIGKDD International Conference on Knowledge 
+Discovery and Data Mining, 2016, pp. 785 -794, doi: 
+10.1145/2939672.2939785. 
+https://www.kdd.org/kdd2016/papers/files/rfp0697-chenAemb.pdf 
+[7] S. Hochreiter and J. Schmidhuber, "Long short -term memory," Neural 
+Computation, vol. 9, no. 8, pp. 1735 -1780, 1997, doi: 
+10.1162/neco.1997.9.8.1735. 
+https://www.bioinf.jku.at/publications/older/2604.pdf 
+
+7 
+[8] K. Cho, B. van Merrienboer, C. Gulcehre, D. Bahdanau, F. Bougares, 
+H. Schwenk, and Y. Bengio, "Learning phrase representations using RNN 
+encoder-decoder for statistical machine translation," in Proc. EMNLP, 
+2014, pp. 1724 -1734, doi: 10.3115/v1/D14 -1179. 
+https://aclanthology.org/D14-1179/ 
+[9] S. J. Taylor and B. Letham, "Forecasting at scale," The American 
+Statistician, vol. 72, no. 1, pp. 37 -45, 2018, doi: 
+10.1080/00031305.2017.1380080. 
+https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1380080 
+[10] Y. Nie, N. H. Nguyen, P. Sinthong, and J. Kalagnanam, "A time 
+series is worth 64 words: Long -term forecasting with Transformers," in 
+Proc. International Conference on Learning Representations, 2023. 
+https://arxiv.org/abs/2211.14730 

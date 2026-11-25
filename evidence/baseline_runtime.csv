@@ -1,0 +1,25 @@
+model,mode,targets,seconds
+Naive,validation_one_step,"[2010, 2011]",0.10318289999850094
+Mean,validation_one_step,"[2010, 2011]",0.11063320000539534
+MA3,validation_one_step,"[2010, 2011]",0.0973156999971252
+Drift,validation_one_step,"[2010, 2011]",0.10952140000881627
+AR1_OLS,validation_one_step,"[2010, 2011]",0.22079259999736678
+SES_LS,validation_one_step,"[2010, 2011]",2.29000680000172
+Holt_LS,validation_one_step,"[2010, 2011]",3.972894999998971
+DampedHolt_LS,validation_one_step,"[2010, 2011]",3.9047906000050716
+Naive,test_one_step,"[2012, 2013, 2014]",0.12100420000206213
+Mean,test_one_step,"[2012, 2013, 2014]",0.14037809999717865
+MA3,test_one_step,"[2012, 2013, 2014]",0.15799440001137555
+Drift,test_one_step,"[2012, 2013, 2014]",0.1398038000043016
+AR1_OLS,test_one_step,"[2012, 2013, 2014]",0.3095014999998966
+SES_LS,test_one_step,"[2012, 2013, 2014]",2.879785899989656
+Holt_LS,test_one_step,"[2012, 2013, 2014]",5.510723700004746
+DampedHolt_LS,test_one_step,"[2012, 2013, 2014]",6.887000999995507
+Naive,fixed_origin,"[2012, 2013, 2014]",0.05488070000137668
+Mean,fixed_origin,"[2012, 2013, 2014]",0.05707359999360051
+MA3,fixed_origin,"[2012, 2013, 2014]",0.056305599995539524
+Drift,fixed_origin,"[2012, 2013, 2014]",0.07980249999673106
+AR1_OLS,fixed_origin,"[2012, 2013, 2014]",0.10199940000893548
+SES_LS,fixed_origin,"[2012, 2013, 2014]",0.9188811000058195
+Holt_LS,fixed_origin,"[2012, 2013, 2014]",1.7462680999888107
+DampedHolt_LS,fixed_origin,"[2012, 2013, 2014]",2.201378800004022

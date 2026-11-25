@@ -1,0 +1,15 @@
+{
+  "annual_panel_rows": 210131,
+  "annual_groups_by_decision": {
+    "included": 210131,
+    "invalid_or_missing_component": 3713,
+    "whole_year_overlap": 362
+  },
+  "raw_rows_by_decision": {
+    "included": 241302,
+    "invalid_or_missing_component": 3997,
+    "whole_year_overlap": 792
+  },
+  "no_production_imputation": true,
+  "outliers_removed": 0
+}

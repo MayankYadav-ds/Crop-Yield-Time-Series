@@ -1,0 +1,6 @@
+{
+  "best_model": "XGBoost_Tuned",
+  "criterion": "outer expanding validation RMSE",
+  "test_evaluation_started": false,
+  "test_limitation": "retrospective extension; these test years were examined in the prior archived study; no independent prospective holdout claimed"
+}

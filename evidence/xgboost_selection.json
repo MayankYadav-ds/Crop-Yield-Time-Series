@@ -1,0 +1,14 @@
+{
+  "trial_count": 12,
+  "selected_trial": 1,
+  "parameters": {
+    "n_estimators": 250,
+    "max_depth": 3,
+    "learning_rate": 0.03,
+    "subsample": 0.8,
+    "colsample_bytree": 0.9,
+    "reg_lambda": 10
+  },
+  "criterion": "expanding validation RMSE, 2010 and 2011",
+  "seed": 42
+}

@@ -1,0 +1,16 @@
+{
+  "representative_sid": "Andhra Pradesh|ANANTAPUR|Maize",
+  "residual_n": 14,
+  "ARCH_LM_p": 0.6810977495277802,
+  "Ljung_Box": {
+    "lb_stat": {
+      "1": 0.36334827732169783,
+      "2": 0.38343774779736034
+    },
+    "lb_pvalue": {
+      "1": 0.5466525429170953,
+      "2": 0.8255389164098489
+    }
+  },
+  "GARCH_VAR_exclusion": "14 annual representative residuals and no validated stationary multivariate design; diagnostic is exploratory and not panel-wide evidence"
+}

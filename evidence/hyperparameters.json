@@ -1,0 +1,174 @@
+{
+  "XGBoost_candidates": [
+    {
+      "n_estimators": 150,
+      "max_depth": 2,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5
+    },
+    {
+      "n_estimators": 250,
+      "max_depth": 3,
+      "learning_rate": 0.03,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.85,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10.0,
+      "reg_alpha": 0.0,
+      "min_child_weight": 10
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 2,
+      "learning_rate": 0.05,
+      "subsample": 1.0,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "reg_alpha": 1.0,
+      "min_child_weight": 10
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "reg_alpha": 0.0,
+      "min_child_weight": 10
+    },
+    {
+      "n_estimators": 350,
+      "max_depth": 3,
+      "learning_rate": 0.05,
+      "subsample": 1.0,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "reg_alpha": 0.1,
+      "min_child_weight": 1
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 3,
+      "learning_rate": 0.08,
+      "subsample": 0.7,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "reg_alpha": 0.0,
+      "min_child_weight": 5
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": 4,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 10.0,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10
+    },
+    {
+      "n_estimators": 350,
+      "max_depth": 4,
+      "learning_rate": 0.08,
+      "subsample": 0.7,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 5.0,
+      "reg_alpha": 0.1,
+      "min_child_weight": 1
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 1.0,
+      "colsample_bytree": 1.0,
+      "reg_lambda": 10.0,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 5.0,
+      "reg_alpha": 1.0,
+      "min_child_weight": 1
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.08,
+      "subsample": 0.85,
+      "colsample_bytree": 0.7,
+      "reg_lambda": 1.0,
+      "reg_alpha": 0.1,
+      "min_child_weight": 10
+    }
+  ],
+  "selected_xgboost": {
+    "n_estimators": 250,
+    "max_depth": 3,
+    "learning_rate": 0.03,
+    "subsample": 0.8,
+    "colsample_bytree": 0.9,
+    "reg_lambda": 10
+  },
+  "neural_models": {
+    "LSTM": {
+      "status": "trained and evaluated",
+      "selected_epochs": 49,
+      "parameter_count": 1233,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "GRU": {
+      "status": "trained and evaluated",
+      "selected_epochs": 52,
+      "parameter_count": 929,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    },
+    "PatchTransformerTiny": {
+      "status": "trained and evaluated",
+      "selected_epochs": 31,
+      "parameter_count": 657,
+      "lookback": 3,
+      "normalization": "fit separately on each training origin",
+      "inner_train_end": 2008,
+      "inner_stop_year": 2009,
+      "max_epochs": 60,
+      "patience": 8,
+      "dropout": 0.1,
+      "learning_rate": 0.003,
+      "batch_size": 256
+    }
+  },
+  "selection_metric": "outer validation RMSE",
+  "test_previously_seen": true
+}
